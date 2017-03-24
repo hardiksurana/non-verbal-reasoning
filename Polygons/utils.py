@@ -1,6 +1,6 @@
 """
 Methods related to processing the complete image 
-as a whole 
+as a whole
 """
 # http://docs.opencv.org/trunk/dd/d49/tutorial_py_contour_features.html
 import cv2,numpy as np

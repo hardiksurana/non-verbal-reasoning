@@ -22,7 +22,7 @@ for l in range(NO_OF_EXAMPLES):
         # make 5 Polygon inside it
         for j in range(NO_OF_FIGURES_IN_ONE):
             # any number of sides 
-            B = Polygon(no_of_sides=int(random.random() * NO_OF_EXAMPLES)+3)
+            B = Polygon(no_of_sides=int(random.random() * NO_OF_EXAMPLES)+3,hatch=None)
             # same center and radius
             B.clone_circumcircle(A)
             # Center remains same as A but the radius can be anything less than A's raduis

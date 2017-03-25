@@ -28,8 +28,8 @@ def apply(polys,func_names,params):
             polys[i].clone_circumcircle(otherpoly=params[i]['otherpoly'])
         elif func_names[i] == 'setHatch':
             polys[i].setHatch(hatch=params[i]['hatch'])
-
-
+        elif func_names[i] == 'swap_polygons':
+            poly[i].swap_polygons(otherpoly=params[i]['otherpoly'])
 
 
 for l in range(3):

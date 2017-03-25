@@ -55,6 +55,10 @@ class Circumcircle:
 # Represents a shape 
 class Polygon : 
 	
+	@staticmethod
+	def getHatches():
+		return ['-', '+', 'x', '\\', '*', 'o', 'O', '.','/','|']
+
 	def __init__(self, no_of_sides=4,size=30,isRegular=True,hatch=None):
 		# size is for the circumcircle radius    
 		self.size = size
@@ -62,7 +66,11 @@ class Polygon :
 		self.isRegular = isRegular
 		self.points = []
 		self.circumcircle = None
-		self.hatch = hatch
+		
+		if hatch == 'random':
+			self.hatch = hatches[int(random.random()*len(hatches))]
+		else:
+			self.hatch = hatch
 
 		# The angles at which each point was drawn 
 		# This will be helpful in case of rotating and other things(I can't think of right now.)

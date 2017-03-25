@@ -62,6 +62,3 @@ def splitQuad(img,quad_number=0):
     else:
         tmp_img[height/2:height,width/2:width] = 255
         return img[height/2:height,width/2:width],tmp_img
-    
-
-

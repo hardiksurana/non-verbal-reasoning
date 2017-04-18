@@ -1,12 +1,28 @@
+# -*- coding: utf-8 -*-
+
 # Pythons math library (math.sin, math.cos) works with radians
 # All angles in this project are radians 
 # All angles are measured from the X-axis anti-clockwise
 
 
-import random, math
+import random, math, string
 import matplotlib as mpl
+import matplotlib.font_manager as fm
+
 mpl.use('TkAgg')
+# mpl.rc('font', family='DejaVu Sans')
+# mpl.rc('font', family='Verdana')
+# zhfont1 = fm.FontProperties(fname='/Library/Fonts/AvenirNextforINTUIT-HeavyIt.otf') #I am on OSX.
 import matplotlib.pyplot as plt
+# print("------------------",fm.cachedir)  # or other way of getting the text out
+# 
+# mpl.rc('font', **{'sans-serif' : 'Arial',
+                           # 'family' : 'sans-serif'})
+
+
+
+# import matplotlib.font_manager as fm
+# fp1=fm.FontProperties(fname="/path/to/somefont.ttf")
 
 hatches = ('-', '+', 'x', '\\', '*', 'o', 'O', '.','/','|')
 
@@ -15,7 +31,7 @@ hatches = ('-', '+', 'x', '\\', '*', 'o', 'O', '.','/','|')
 # import matplotlib.pyplot as plt
 
 # Any polygon with more number of points will be considered a circle 
-CIRCLE_LIMIT_POINT = 8
+CIRCLE_LIMIT_POINT = 100
 CANVAS_SIZE = 10
 IRREGULAR_ANGLE = math.pi / 6
 
@@ -59,18 +75,28 @@ class Polygon :
 	def getHatches():
 		return ['-', '+', 'x', '\\', '*', 'o', 'O', '.','/','|']
 
-	def __init__(self, no_of_sides=4,size=30,isRegular=True,hatch=None):
+	def __init__(self, no_of_sides=4,size=30,isRegular=True,hatch=None,circumcircle=None):
 		# size is for the circumcircle radius    
+		print("In polygons, size is ",size)
 		self.size = size
 		self.N = no_of_sides
-		self.isRegular = isRegular
+		if isRegular == 'any':
+			self.isRegular = random.choice([True, False])
+		else:
+			self.isRegular = isRegular
 		self.points = []
-		self.circumcircle = None
+
+		self.circumcircle = circumcircle
 		
 		if hatch == 'random':
 			self.hatch = hatches[int(random.random()*len(hatches))]
 		else:
 			self.hatch = hatch
+
+
+		# for alphabet
+		# in deg
+		self.alphabet_rotation = 0
 
 		# The angles at which each point was drawn 
 		# This will be helpful in case of rotating and other things(I can't think of right now.)
@@ -118,6 +144,8 @@ class Polygon :
 			# The center of the circumcircle is the point 
 			# No need to generate points 
 			# pass
+			self.type='alpha'
+			self.alphabet = random.choice(list(string.letters) + [u'\u2605',u'\u25DF',u'\u2020',u'\u002B'])
 			pass
 		elif self.N == 2:
 			# An arrow
@@ -191,7 +219,27 @@ class Polygon :
 		if self.N == 0:
 			self.drawCircle()
 		elif self.N == 1: 
-			self.isCircle()
+
+			# http://matplotlib.org/users/text_props.html
+			# \u2726.\u2727,\u066D
+			# normal star = \u066D
+			# https://en.wikipedia.org/wiki/Star_(glyph)
+			# https://en.wikipedia.org/wiki/List_of_Unicode_characters
+
+			# BIG STAR - \u2605
+			#  arc- \u25DF
+			# Jesus cross - \u2020
+			# plus - \u002B
+
+			plt.gca().text(self.circumcircle.x, self.circumcircle.y, self.alphabet,
+        			# rotation value should in degrees
+        			rotation=self.alphabet_rotation * (180/math.pi) ,
+        			fontsize=self.size, color='red',
+        			multialignment='center',
+        			verticalalignment='center', horizontalalignment='center',
+        			# fontproperties=zhfont1
+        		)
+
 		elif self.N == 2: 
 			# self.drawCircle()
 			self.drawArrow()
@@ -301,7 +349,12 @@ class Polygon :
 		pass
 
 	def rotate(self,theta=math.pi/2):
-		if not self.isCircle():
+		if self.N == 1:
+			# Alphabet rotation should be in degrees
+			# theta here is in rads as for everything else
+			self.alphabet_rotation += theta
+
+		elif not self.isCircle():
 			# rotate the current polygon clockwise by theta
 			self.points = []
 			print(len(self.point_angles))
@@ -344,7 +397,14 @@ class Polygon :
 		  hori - about horizontal axis 
 	"""
 	def flip(self,how='vert'):
-		if not self.isCircle():
+		if self.N == 1:
+			# Alphabet
+			if how =='vert':
+				self.alphabet_rotation='vertical'
+			else:
+				self.alphabet_rotation = 'horizontal'
+
+		elif not self.isCircle():
 			pts = []
 			if how == 'vert':
 				for pt in self.points:
@@ -467,7 +527,7 @@ class Polygon :
 if __name__ == '__main__':
 
 	plt.figure()
-	A = Polygon(no_of_sides=2,isRegular=False,size=10)
+	A = Polygon(no_of_sides=4,isRegular=False,size=10,hatch='random')
 	A.makeRandomCircumcircle()
 	print "A circumcircle", A
 	A.makeShape()
@@ -488,7 +548,7 @@ if __name__ == '__main__':
 	# B.drawPolygon()
 	# A.drawPolygon()
 
-	B = Polygon(no_of_sides=4,isRegular=True,size=5,hatch=None)
+	B = Polygon(no_of_sides=4,isRegular=True,size=5,hatch='*')
 	
 	B.makeRandomCircumcircle()
 	# print "B circumcircle", B

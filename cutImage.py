@@ -13,13 +13,17 @@ def draw_boundary(quad_number,filename):
     print filename
     height, width = img.shape
     if quad_number == 0:
-        os.system('convert '+filename+' -fill none -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+',0 '+str(width/2)+','+str(height)+'\" ' + filename )
+        os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+',0 '+str(width/2)+','+str(height/2)+'\" ' + filename )
+        # print('convert '+filename+' -fill white -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+',0 '+str(width/2)+','+str(height/2)+'\" ' + filename )
     elif quad_number == 1:
-        os.system('convert '+filename+' -fill none -draw \"stroke-dasharray 5 3 rectangle 0,0 '+str(width/2)+','+str(height)+'\" ' + filename)
+        os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 5 3 rectangle 0,0 '+str(width/2)+','+str(height/2)+'\" ' + filename)
+        # print('convert '+filename+' -fill white -draw \"stroke-dasharray 5 3 rectangle 0,0 '+str(width/2)+','+str(height)+'\" ' + filename)
     elif quad_number == 2:
-        os.system('convert '+filename+' -fill none -draw \"stroke-dasharray 5 3 rectangle 0,'+str(height/2)+' '+str(width/2)+','+str(height)+'\" ' + filename)
+        os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 10 4 rectangle 0,'+str(height/2)+' '+str(width/2)+','+str(height)+'\" ' + filename)
+        # print('convert '+filename+' -fill white -draw \"stroke-dasharray 5 3 rectangle 0,'+str(height/2)+' '+str(width/2)+','+str(height/2)+'\" ' + filename)
     elif quad_number == 3:
-        os.system('convert '+filename+' -fill none -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+','+str(height/2)+' '+str(width/2)+','+str(height)+'\" ' + filename)
+        os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+','+str(height/2)+' '+str(width)+','+str(height)+'\" ' + filename)
+        # print('convert '+filename+' -fill black -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+','+str(height/2)+' '+str(width/2)+','+str(height/2)+'\" ' + filename )
 
 
 def apply(polys,func_names,params):
@@ -70,7 +74,8 @@ for l in range(NO_OF_EXAMPLES):
             B.circumcircle.x = B.circumcircle.x #+ random.choice([1,-1]) * random.choice(range(1,5))
             B.circumcircle.y = B.circumcircle.y #+ random.choice([1,-1]) * random.choice(range(1,5))
             # Center remains same as A but the radius can be anything less than A's raduis
-            B.circumcircle.radius = random.choice([0.2,0.4,0.8]) * B.circumcircle.radius
+            # B.circumcircle.radius = random.choice([0.2,0.4,0.8]) * B.circumcircle.radius
+            B.circumcircle.radius = random.choice([10,20,40,50]) + B.circumcircle.radius
             # make the sides 
             B.makeShape()
             # draw the polygon on the canvas
@@ -169,7 +174,9 @@ for l in range(NO_OF_EXAMPLES):
         os.system(' convert '+'./plot/quads/plotQuad'+str(l)+'Dist'+str(j)+'.png'+'  -bordercolor Black -border 4x4 '+'./plot/quads/plotQuad'+str(l)+'Dist'+str(j)+'.png')
         os.system(' convert '+'./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png'+'  -bordercolor Black -border 8x8 '+'./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png')
 
-    os.system('montage -tile 4x1 '+'./plot/quads/plotQuad'+str(l)+'.png ./plot/quads/plotQuad'+str(l)+'Dist[0-2].png ./plot/quads/output'+str(l)+'.png')
+    names = ['./plot/quads/plotQuad'+str(l)+'.png', './plot/quads/plotQuad'+str(l)+'Dist0.png', './plot/quads/plotQuad'+str(l)+'Dist1.png', './plot/quads/plotQuad'+str(l)+'Dist2.png', ] 
+    random.shuffle(names)
+    os.system('montage -tile 4x1 '+' '.join(names)+' ./plot/quads/output'+str(l)+'.png')
         # img = cv2.imread('./plot/plot'+str(l)+'Dist'+str(j)+'.png',0)
         # img = cropImage(img)
         # # save the cropped image

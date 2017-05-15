@@ -10,25 +10,9 @@ import matplotlib as mpl
 import matplotlib.font_manager as fm
 
 mpl.use('TkAgg')
-# mpl.rc('font', family='DejaVu Sans')
-# mpl.rc('font', family='Verdana')
-# zhfont1 = fm.FontProperties(fname='/Library/Fonts/AvenirNextforINTUIT-HeavyIt.otf') #I am on OSX.
-import matplotlib.pyplot as plt
-# print("------------------",fm.cachedir)  # or other way of getting the text out
-# 
-# mpl.rc('font', **{'sans-serif' : 'Arial',
-                           # 'family' : 'sans-serif'})
-
-
-
-# import matplotlib.font_manager as fm
-# fp1=fm.FontProperties(fname="/path/to/somefont.ttf")
-
 hatches = ('-', '+', 'x', '\\', '*', 'o', 'O', '.','/','|')
 
 # hatches = ('A','B','b','?','$')
-
-# import matplotlib.pyplot as plt
 
 # Any polygon with more number of points will be considered a circle 
 CIRCLE_LIMIT_POINT = 100
@@ -97,6 +81,7 @@ class Polygon :
 		# for alphabet
 		# in deg
 		self.alphabet_rotation = 0
+		self.alphabet = None
 
 		# The angles at which each point was drawn 
 		# This will be helpful in case of rotating and other things(I can't think of right now.)
@@ -144,8 +129,9 @@ class Polygon :
 			# The center of the circumcircle is the point 
 			# No need to generate points 
 			# pass
-			self.type='alpha'
-			self.alphabet = random.choice(list(string.letters) + [u'\u2605',u'\u25DF',u'\u2020',u'\u002B'])
+			if self.alphabet == None:
+				self.type='alpha'
+				self.alphabet = random.choice(list(string.letters) + [u'\u2605',u'\u25DF',u'\u2020',u'\u002B'])
 			pass
 		elif self.N == 2:
 			# An arrow
@@ -234,7 +220,7 @@ class Polygon :
 			plt.gca().text(self.circumcircle.x, self.circumcircle.y, self.alphabet,
         			# rotation value should in degrees
         			rotation=self.alphabet_rotation * (180/math.pi) ,
-        			fontsize=self.size, color='red',
+        			fontsize=self.size, color='black',
         			multialignment='center',
         			verticalalignment='center', horizontalalignment='center',
         			# fontproperties=zhfont1
@@ -477,28 +463,6 @@ class Polygon :
 		self.gen_points()
 		otherpoly.gen_points()
 
-	def is_inside(self,otherpoly):
-		pass
-		# otherpoly should be a polygon
-		# if not type(*otherpolys) == type(self):
-		#     # raise error
-		#     print("Something is wrong: Wrong type" + type(self))
-		# else:
-		#
-		#     total_distance = self.circumcircle.radius + otherpoly.size  # +some_random_distance
-		#
-		#     # Get a random angle to draw the new image
-		#     draw_angle = rndangle()
-		#
-		#     otherpoly_center = getpoints(total_distance, draw_angle, self.circumcircle.x, self.circumcircle.y)
-		#     otherpoly.circumcircle = Circumcircle(otherpoly.size, otherpoly_center[0], otherpoly_center[1])
-		#
-		#     # Genereate points for otherpoly
-		#     otherpoly.makeShape()
-
-
-
-
 
 					# Define the circumcircle for the new shape
 
@@ -537,17 +501,6 @@ if __name__ == '__main__':
 	# A.drawPolygon()
 	A.rotate(math.pi/2)
 	
-
-
-	# B = Polygon(no_of_sides=4,isRegular=True,size=5,hatch=None)
-	
-	# B.makeRandomCircumcircle()
-	# print "B circumcircle", B
-	# B.makeShape()
-	# A.gen_inside(B)
-	# B.drawPolygon()
-	# A.drawPolygon()
-
 	B = Polygon(no_of_sides=4,isRegular=True,size=5,hatch='*')
 	
 	B.makeRandomCircumcircle()
@@ -579,18 +532,3 @@ if __name__ == '__main__':
 	plt.axis('image')
 	plt.savefig('./test1.png')
 	
-	
-	# A.swap_polygons(B)
-	# print("After swap")
-	# print "A circumcircle", A
-	# print "B circumcircle", B
-	# print "A angles", A.point_angles
-	# print "B angles", B.point_angles
-	
-	# plt.figure()
-	# A.gen_inside(B)
-	# A.drawPolygon()
-	# B.drawPolygon()
-	# plt.axis('off')
-	# plt.axis('image')
-	# plt.savefig('./test2.png')

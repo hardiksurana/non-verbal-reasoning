@@ -6,25 +6,7 @@ import cv2
 
 X = 4
 
-# funcs = { 
-#     "swap_polygons": {
-#         "params" : ["polygon_index"]
-#     },
-#     "rotate" : {
-#         "params" : ["angle"]
-#     },
-#     "flip" : {
-#         "params": [ ["hori","vert"] ]
-#     },
-#     "add_vertex" : {
-#         "params" : None
-#     }
-# }
-
-
 funcs = [ "swap_polygons", "rotate", "flip", "add_vertex" ]
-
-
 
 for i in range(3):
    
@@ -64,7 +46,6 @@ for i in range(3):
     func_names = []
     params = []
     plt.figure()
-
 
     for k ,pl in enumerate(polys):
 

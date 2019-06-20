@@ -39,21 +39,6 @@ Distractors Remaining 3 parts - plotQuad(i)Dist(j).png
 - Combination of all 4 answer options - output(i).png
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # TODO
 
 1. package this in a manner that can be easily used by someone to generate multiple sets of papers with as many questions as necessary of comparable difficulty level

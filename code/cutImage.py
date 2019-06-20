@@ -183,9 +183,10 @@ for l in range(NO_OF_EXAMPLES):
 '''
 
 class Cut:
-    def __init__(self, polyNum, questionCount, optionNum):
+    def __init__(self, polyNum, questionCount, setCount, optionNum):
         self.polyNum = polyNum
         self.questionCount = questionCount
+        self.setCount = setCount
         self.optionNum = optionNum
         # self.sidesNum = sidesNum
         self.question_path = ''
@@ -229,7 +230,7 @@ class Cut:
 
         plt.axis('image')
         plt.axis('off')
-        question_tmpPath = './plot/cut/tmp/question_'+str(self.questionCount)+'.png'
+        question_tmpPath = './plot/cut/tmp/set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'.png'
         plt.savefig(question_tmpPath)
 
         # crop the question image
@@ -238,8 +239,8 @@ class Cut:
         cv2.imwrite(question_tmpPath, img)
 
         # remove one quadrant from question and generate answer
-        self.question_path = './plot/cut/result/question_'+str(self.questionCount)+'.png'
-        self.answer_path = './plot/cut/result/answer_'+str(self.questionCount)+'.png'
+        self.question_path = './plot/cut/result/set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'.png'
+        self.answer_path = './plot/cut/result/set_' + str(self.setCount) + '_answer_'+str(self.questionCount)+'.png'
 
         img = cv2.imread(question_tmpPath, 0)
         quad, rest_img = splitQuad(img, self.quadrantNum)
@@ -269,7 +270,7 @@ class Cut:
             plt.axis('image')
             plt.axis('off')
 
-            distractor_tmpPath = './plot/cut/tmp/question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
+            distractor_tmpPath = './plot/cut/tmp/set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
             plt.savefig(distractor_tmpPath)
 
             # crop the image
@@ -281,7 +282,7 @@ class Cut:
             img = cv2.imread(distractor_tmpPath, 0)
             quad, rest_img = splitQuad(img, self.quadrantNum)
 
-            distractor_finalPath = './plot/cut/result/question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
+            distractor_finalPath = './plot/cut/result/set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
             cv2.imwrite(distractor_finalPath, quad)
             # cv2.imwrite('./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png',rest_img)
 

@@ -10,11 +10,13 @@
 '''
 # format to store quiz data in dictionary
 {
-    <Question_Number> : {
-        'question_type': 'cut' / 'fold' / 'dice' ...,
-        'question': <Path_To_Question_Image>,
-        'answer': <Path_To_Solution_Image>,
-        'distractors': [<Path_To-Dist_1>,<Path_To-Dist_2>,<Path_To-Dist_3>]
+    set_<SET_NUM>: {
+        <Question_Number> : {
+            'question_type': 'cut' / 'fold' / 'dice' ...,
+            'question': <Path_To_Question_Image>,
+            'answer': <Path_To_Solution_Image>,
+            'distractors': [<Path_To-Dist_1>,<Path_To-Dist_2>,<Path_To-Dist_3>]
+        }
     }
 }
 '''
@@ -40,22 +42,27 @@ if __name__ == "__main__":
     # parser.add_argument('--sidesNum', required=True, type=int, help='enter number of sides in the polygon')
     parser.add_argument('--polyNum', required=True, type=int, help='enter number of polygons embedded in outer polygon')
     parser.add_argument('--optionNum', type=int, help='enter number of options to be generated along with the answer')
+    parser.add_argument('--sets', type=int, help='enter number of question paper sets to be generated')
+
     args= parser.parse_args()
 
     questions = dict()
 
-    if args.cut is not None:
-        for i in range(1, args.cut + 1):
-            c = Cut(args.polyNum, i, args.optionNum)
-            questions[str(i)] = dict()
-            questions[str(i)]['question_type'] = 'cut'
+    for s in range(1, args.sets + 1):
+        questions["set_" + str(s)] = dict()
+        
+        if args.cut is not None:
+            for i in range(1, args.cut + 1):
+                c = Cut(args.polyNum, i, s, args.optionNum)
+                questions["set_" + str(s)]['q' + str(i)] = dict()
+                questions["set_" + str(s)]['q' + str(i)]['question_type'] = 'cut'
 
-            c.genQuestionAnswerPair()
-            c.genDistractors()
+                c.genQuestionAnswerPair()
+                c.genDistractors()
 
-            questions[str(i)]['question'] = c.getQuestion()
-            questions[str(i)]['answer'] = c.getAnswer()
-            questions[str(i)]['distractors'] = c.getDistractors()
+                questions["set_" + str(s)]['q' + str(i)]['question'] = c.getQuestion()
+                questions["set_" + str(s)]['q' + str(i)]['answer'] = c.getAnswer()
+                questions["set_" + str(s)]['q' + str(i)]['distractors'] = c.getDistractors()
 
         
     print json.dumps(questions, sort_keys=True, indent=4)

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Flask Parent Template</title>
+
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="title">Non-Verbal Reasoning Quiz</h1>
+        <form action = "http://localhost:9000/generate" method = "POST">
+            <p>Name <input type = "text" name = "Name" /></p>
+            <p><input type = "submit" value = "Generate Quiz" /></p>
+         </form>
+      </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+   <body>
+      <table border = 1>
+         {% for question, options in questions['set_1'].items() %}
+            <tr>
+               <td> {{ question }} </th>
+               <td> <img src={{ url_for('static', filename='result/' + options['question']) }} /> </td>
+            </tr>
+            <tr>
+               <td> <img src={{ url_for('static', filename='result/' + options['answer']) }} /> </td>
+               <td> <img src={{ url_for('static', filename='result/' + options['distractors'][0]) }} /> </td>
+               <td> <img src={{ url_for('static', filename='result/' + options['distractors'][1]) }} /> </td>
+               <td> <img src={{ url_for('static', filename='result/' + options['distractors'][2]) }} /> </td>
+
+            </tr>
+         {% endfor %}
+      </table>
+   </body>
+</html>

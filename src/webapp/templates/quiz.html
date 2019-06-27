@@ -9,7 +9,7 @@
       <p>{{ question_text }}</p>
       <img width="100" height="100" src={{ url_for('static', filename='result/' + question_filepath) }} />
       <hr>
-      <form action = "http://localhost:9000/generate" method = "POST">
+      <form id="questionSubmission" action = "http://localhost:9000/generate" method = "POST">
          <p>
             {% for option in options %}
                <input type="radio" name="options" id={{option}} value={{option}} />
@@ -18,7 +18,26 @@
                <br>
             {% endfor %}
          </p>
-         <p><input type="submit" value="Submit" /></p>
+         <p><input type='hidden' id='timeTaken' name='timeTaken' value='' /></p>
+         <p><input type="button" value="Submit" onclick="updateTime()"/></p>
       </form>
+
+      <script type="text/javascript">
+         var time_in_secs = 0
+         function add_time() {
+            time_in_secs = time_in_secs + 1
+            console.log(time_in_secs)
+         }
+
+         window.onload = function() {
+            window.setInterval(add_time, 1000);
+         }
+
+         function updateTime() {
+            document.getElementById("timeTaken").value = time_in_secs.toString();
+            clearInterval(add_time)
+            document.getElementById("questionSubmission").submit();
+         }
+      </script>
    </body>
 </html>

@@ -17,7 +17,7 @@ NUM_POLYGONS = 2    # indicative of difficulty level
 NUM_OPTIONS = 3     # number of answer options
 questions = dict()
 responses = dict()
-current_question = 0
+current_question = 1
 student_details = None
 
 def calculate(questions, responses):
@@ -35,7 +35,6 @@ def submitDetails():
         student_details = request.form
         # render the quiz page with the first question
         questions = generate_questions(NUM_QUESTIONS, NUM_POLYGONS, NUM_OPTIONS).copy()
-        current_question = 1
         distractors = questions[str(current_question)]['distractors']
         answer = questions[str(current_question)]['answer']
         distractors.append(str(answer))
@@ -55,7 +54,9 @@ def generate():
     global questions
     global responses
     if request.method == 'POST':
-        responses[str(current_question)] = request.form['options']
+        responses[str(current_question)] = dict()
+        responses[str(current_question)]["response"] = request.form['options']
+        responses[str(current_question)]["time_in_seconds"] = request.form['timeTaken']
         print "\nQuestion = {0}. Response = {1}. Answer = {2}\n".format(str(current_question), responses[str(current_question)], questions[str(current_question)]['answer'])
         current_question += 1
         if current_question <= NUM_QUESTIONS:
@@ -71,7 +72,11 @@ def generate():
             )
         else:
             print json.dumps(responses, sort_keys=True, indent=4)
-            return render_template("result.html")
+            current_question = 1
+            questions = dict()
+            responses = dict()
+            print("quiz is completed")
+            return render_template("home.html")
             # result = calculate(questions, responses)
 
 if __name__ == "__main__":

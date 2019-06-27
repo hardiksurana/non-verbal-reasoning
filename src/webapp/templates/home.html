@@ -2,16 +2,18 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Flask Parent Template</title>
-
-  </head>
-  <body>
+    <title>Results | NVR Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <body>
     <header>
       <div class="container">
         <h1 class="title">Non-Verbal Reasoning Quiz</h1>
-        <form action = "http://localhost:9000/generate" method = "POST">
-            <p>Name <input type = "text" name = "Name" /></p>
-            <p><input type = "submit" value = "Generate Quiz" /></p>
+        <form action = "http://localhost:9000/submitDetails" method = "POST">
+            <p>Name <input type = "text" name = "name" /></p>
+            <!-- <p>Age <input type = "text" name = "age" /></p>
+            <p>Highest level of education <input type = "text" name = "highest_education" /></p> -->
+            <p><input type = "submit" value = "Take Quiz" /></p>
          </form>
       </div>
     </header>

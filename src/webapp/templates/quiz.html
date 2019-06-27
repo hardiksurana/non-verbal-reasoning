@@ -1,20 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+   <head>
+      <title>Results | NVR Quiz</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+        
    <body>
-      <table border = 1>
-         {% for question, options in questions['set_1'].items() %}
-            <tr>
-               <td> {{ question }} </th>
-               <td> <img src={{ url_for('static', filename='result/' + options['question']) }} /> </td>
-            </tr>
-            <tr>
-               <td> <img src={{ url_for('static', filename='result/' + options['answer']) }} /> </td>
-               <td> <img src={{ url_for('static', filename='result/' + options['distractors'][0]) }} /> </td>
-               <td> <img src={{ url_for('static', filename='result/' + options['distractors'][1]) }} /> </td>
-               <td> <img src={{ url_for('static', filename='result/' + options['distractors'][2]) }} /> </td>
-
-            </tr>
-         {% endfor %}
-      </table>
+      <p>{{ question_text }}</p>
+      <img width="100" height="100" src={{ url_for('static', filename='result/' + question_filepath) }} />
+      <hr>
+      <form action = "http://localhost:9000/generate" method = "POST">
+         <p>
+            {% for option in options %}
+               <input type="radio" name="options" id={{option}} value={{option}} />
+                  <img width="100" height="100" src={{ url_for('static', filename='result/' + option) }} />
+               </input>
+               <br>
+            {% endfor %}
+         </p>
+         <p><input type="submit" value="Submit" /></p>
+      </form>
    </body>
 </html>

@@ -9,10 +9,12 @@ import random
 import math
 import string
 import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 
-mpl.use('TkAgg')
+# mpl.use('TkAgg')
+
 hatches = ('-', '+', 'x', '\\', '*', 'o', 'O', '.', '/', '|')
 
 # hatches = ('A','B','b','?','$')

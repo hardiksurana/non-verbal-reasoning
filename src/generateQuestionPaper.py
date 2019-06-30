@@ -61,13 +61,14 @@ import json
     }
 }
 '''
-def generate_questions(questionNum, polyNum, optionNum):
+def generate_questions(user_id, questionNum, polyNum, optionNum):
     questions = dict()
     if questionNum is not None:
         for i in range(1, questionNum + 1):
-            c = Cut(polyNum, i, 1, optionNum)
+            c = Cut(user_id, polyNum, i, 1, optionNum)
             questions[str(i)] = dict()
             questions[str(i)]['question_type'] = 'cut'
+            questions[str(i)]['num_polygons'] = polyNum
             questions[str(i)]['question_text'] = 'identify the missing piece of the image'
             c.genQuestionAnswerPair()
             c.genDistractors()

@@ -183,7 +183,8 @@ for l in range(NO_OF_EXAMPLES):
 '''
 
 class Cut:
-    def __init__(self, polyNum, questionCount, setCount, optionNum):
+    def __init__(self, user_id, polyNum, questionCount, setCount, optionNum):
+        self.user_id = user_id
         self.polyNum = polyNum
         self.questionCount = questionCount
         self.setCount = setCount
@@ -231,7 +232,7 @@ class Cut:
 
         plt.axis('image')
         plt.axis('off')
-        question_tmpPath = self.STATIC_ROOT + 'tmp/set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'.png'
+        question_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + '_set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'.png'
         plt.savefig(question_tmpPath)
 
         # crop the question image
@@ -240,8 +241,8 @@ class Cut:
         cv2.imwrite(question_tmpPath, img)
 
         # remove one quadrant from question and generate answer
-        self.question_path = self.STATIC_ROOT + 'result/set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'.png'
-        self.answer_path = self.STATIC_ROOT + 'result/set_' + str(self.setCount) + '_answer_'+str(self.questionCount)+'.png'
+        self.question_path = self.STATIC_ROOT + 'result/' + self.user_id + '_set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'.png'
+        self.answer_path = self.STATIC_ROOT + 'result/' + self.user_id + '_set_' + str(self.setCount) + '_answer_'+str(self.questionCount)+'.png'
 
         img = cv2.imread(question_tmpPath, 0)
         quad, rest_img = splitQuad(img, self.quadrantNum)
@@ -271,7 +272,7 @@ class Cut:
             plt.axis('image')
             plt.axis('off')
 
-            distractor_tmpPath = self.STATIC_ROOT + 'tmp/set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
+            distractor_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + '_set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
             plt.savefig(distractor_tmpPath)
 
             # crop the image
@@ -283,7 +284,7 @@ class Cut:
             img = cv2.imread(distractor_tmpPath, 0)
             quad, rest_img = splitQuad(img, self.quadrantNum)
 
-            distractor_finalPath = self.STATIC_ROOT + 'result/set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
+            distractor_finalPath = self.STATIC_ROOT + 'result/' + self.user_id + '_set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
             cv2.imwrite(distractor_finalPath, quad)
             # cv2.imwrite('./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png',rest_img)
 

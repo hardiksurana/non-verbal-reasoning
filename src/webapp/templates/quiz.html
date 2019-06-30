@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Results | NVR Quiz</title>
+      <title>NVR Quiz</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
         
    <body>
       <p>{{ question_text }}</p>
-      <img width="100" height="100" src={{ url_for('static', filename='result/' + question_filepath) }} />
+      <img width="200" height="200" src={{ url_for('static', filename='result/' + question_filepath) }} />
       <hr>
-      <form id="questionSubmission" action = "http://localhost:9000/generate" method = "POST">
+      <!-- <form id="questionSubmission" action = "http://localhost:9000/generate" method = "POST"> -->
+      <form id="questionSubmission" action = "{{ url_for('feedback') }}" method = "POST">
          <p>
             {% for option in options %}
                <input type="radio" name="options" id={{option}} value={{option}} />
-                  <img width="100" height="100" src={{ url_for('static', filename='result/' + option) }} />
+                  <img width="200" height="200" src={{ url_for('static', filename='result/' + option) }} />
                </input>
-               <br>
+               <!-- <br> -->
             {% endfor %}
          </p>
          <p><input type='hidden' id='timeTaken' name='timeTaken' value='' /></p>

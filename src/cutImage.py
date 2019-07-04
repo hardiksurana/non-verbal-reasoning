@@ -1,6 +1,7 @@
 from Polygons.Polygons import Polygon,plt
 from Polygons.utils import cropImage,splitQuad
-
+from io import BytesIO
+import base64
 import random, cv2, math, os
 
 NO_OF_FIGURES_IN_ONE = 3
@@ -183,12 +184,13 @@ for l in range(NO_OF_EXAMPLES):
 '''
 
 class Cut:
-    def __init__(self, user_id, polyNum, questionCount, setCount, optionNum):
-        self.user_id = user_id
+    def __init__(self, user_id, session_id, polyNum, questionCount): #, questionCount, setCount, optionNum):
+        self.user_id = str(user_id)
+        self.session_id = str(session_id)
         self.polyNum = polyNum
         self.questionCount = questionCount
-        self.setCount = setCount
-        self.optionNum = optionNum
+        # self.setCount = setCount
+        self.optionNum = 3 # number of distractors
         # self.sidesNum = sidesNum
         self.question_path = ''
         self.answer_path = ''
@@ -197,15 +199,7 @@ class Cut:
         self.quadrantNum = random.choice([0,1,2,3])
         self.STATIC_ROOT = '/Users/hardik/Desktop/projects/turtle/src/webapp/static/'
     
-    def genQuestionAnswerPair(self):
-        # generate question image 
-        plt.figure()
-
-        # Make a random polygon (the outer most Polygon) 
-        A = Polygon()
-        A.makeRandomCircumcircle()
-        A.drawPolygon()
-
+    def distractor_sequence(self, A):
         # This stores the polygons that make up an image.
         # We should store this and use it to create a distractor image
         seqs_of_polygons = [A]
@@ -214,6 +208,7 @@ class Cut:
         # make 5 Polygons inside it
         for j in range(self.polyNum):
             # any number of sides 
+            # FIXME: figure out better way to decide number of sides in the polygon
             B = Polygon(no_of_sides=random.choice([0,int(random.random()*7)+3]),isRegular='any',hatch=None)
             # same center and radius
             B.clone_circumcircle(A)
@@ -229,10 +224,21 @@ class Cut:
             seqs_of_polygons.append(B)
                 
         self.distractors = seqs_of_polygons
+    
+    def generate_question_answer_pair(self):
+        # generate question image 
+        plt.figure()
+        # Make a random polygon (the outer most Polygon) 
+        A = Polygon()
+        A.makeRandomCircumcircle()
+        A.drawPolygon()
+
+        # store distractor sequence
+        self.distractor_sequence(A)
 
         plt.axis('image')
         plt.axis('off')
-        question_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + '_set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'.png'
+        question_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_question_'+str(self.questionCount)+'.png'
         plt.savefig(question_tmpPath)
 
         # crop the question image
@@ -241,8 +247,8 @@ class Cut:
         cv2.imwrite(question_tmpPath, img)
 
         # remove one quadrant from question and generate answer
-        self.question_path = self.STATIC_ROOT + 'result/' + self.user_id + '_set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'.png'
-        self.answer_path = self.STATIC_ROOT + 'result/' + self.user_id + '_set_' + str(self.setCount) + '_answer_'+str(self.questionCount)+'.png'
+        self.question_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_question_'+str(self.questionCount)+'.png'
+        self.answer_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_answer_'+str(self.questionCount)+'.png'
 
         img = cv2.imread(question_tmpPath, 0)
         quad, rest_img = splitQuad(img, self.quadrantNum)
@@ -272,7 +278,7 @@ class Cut:
             plt.axis('image')
             plt.axis('off')
 
-            distractor_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + '_set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
+            distractor_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
             plt.savefig(distractor_tmpPath)
 
             # crop the image
@@ -284,21 +290,27 @@ class Cut:
             img = cv2.imread(distractor_tmpPath, 0)
             quad, rest_img = splitQuad(img, self.quadrantNum)
 
-            distractor_finalPath = self.STATIC_ROOT + 'result/' + self.user_id + '_set_' + str(self.setCount) + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
+
+
+
+            distractor_finalPath = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
             cv2.imwrite(distractor_finalPath, quad)
             # cv2.imwrite('./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png',rest_img)
 
-            self.distractors_path.append(os.path.split(distractor_finalPath)[1])
+            # self.distractors_path.append(os.path.split(distractor_finalPath)[1])
+            self.distractors_path.append(distractor_finalPath)
 
             # add border
             os.system(' convert ' + distractor_finalPath + '  -bordercolor Black -border 4x4 ' + distractor_finalPath)
             # os.system(' convert '+'./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png'+'  -bordercolor Black -border 8x8 '+'./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png')
     
     def getQuestion(self):
-        return os.path.split(self.question_path)[1]
+        # return os.path.split(self.question_path)[1]
+        return self.question_path
     
     def getAnswer(self):
-        return os.path.split(self.answer_path)[1]
+        # return os.path.split(self.answer_path)[1]
+        return self.answer_path
     
     def getDistractors(self):
         return self.distractors_path

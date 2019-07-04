@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Homepage | NVR Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <body>
+    <header>
+      <div class="container">
+        <h1 class="title">Non-Verbal Reasoning Quiz</h1>
+        <p>{{login_msg}}</p>
+
+        <h2>Leaderboard will come here</h2>
+        <table border=1>
+            <tr>
+                <th>Email</th>
+                <th>Avg correct score</th>
+                <th>Avg. time taken</th>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+        </table>
+
+        <form action = "{{ url_for('enterQuiz') }}" method = "POST">
+            <p><input type = "submit" value = "Take New Quiz" /></p>
+        </form>
+      </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+  </body>
+</html>

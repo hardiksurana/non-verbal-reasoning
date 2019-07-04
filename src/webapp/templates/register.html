@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Register | NVR Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <body>
+    <header>
+      <div class="container">
+        <h1 class="title">Non-Verbal Reasoning Quiz</h1>
+        <h2>Register</h2>
+          <form action = "{{ url_for('register') }}" method = "POST">
+            <p>Email ID: <input type = "email" name = "email" /></p>
+            <p>Age: <input type = "int" name = "age" /></p>
+            <p>Education: <input type = "text" name = "education" /></p>
+            <p>Gender:</p>
+            <select name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <br/>
+            <p><input type = "submit" value = "Register" /></p>
+         </form>
+      </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+  </body>
+</html>

@@ -7,22 +7,22 @@
         
    <body>
       <p>{{ question_text }}</p>
+      <!-- <img width="200" height="200" src={{ url_for('static', filename='result/' + question_filepath) }} /> -->
       <img width="200" height="200" src="data:image/png;base64,{{question}}"/>
       <hr>
       <form id="questionSubmission" action = "{{ url_for('feedback') }}" method = "POST">
-         <input type="radio" name="options" id={{option}} value={{option}} />
-            <img width="200" height="200" src="data:image/png;base64,{{answer}}"/>
-         </input>
-         <input type="radio" name="options" id={{option}} value={{option}} />
-            <img width="200" height="200" src="data:image/png;base64,{{dist_1}}"/>
-         </input>
-         <input type="radio" name="options" id={{option}} value={{option}} />
-            <img width="200" height="200" src="data:image/png;base64,{{dist_2}}"/>
-         </input>
-         <input type="radio" name="options" id={{option}} value={{option}} />
-            <img width="200" height="200" src="data:image/png;base64,{{dist_3}}"/>
-         </input>
-         <br/>
+         <!-- <p>
+            {% for option in options %}
+               <input type="radio" name="options" id={{option}} value={{option}} />
+                  <img width="200" height="200" src={{ url_for('static', filename='result/' + option) }} />
+               </input>
+            {% endfor %}
+         </p> -->
+
+         
+         <!-- <img src="data:image/jpeg;base64,'.base64_encode( $result['image'] ).'"/>
+         <img src="data:image/jpeg;base64,'.base64_encode( $result['image'] ).'"/>
+         <img src="data:image/jpeg;base64,'.base64_encode( $result['image'] ).'"/> -->
 
          <p><input type='hidden' id='timeTaken' name='timeTaken' value='' /></p>
          <p><input type="button" value="Submit" onclick="updateTime()"/></p>

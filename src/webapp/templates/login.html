@@ -9,7 +9,11 @@
     <header>
       <div class="container">
         <h1 class="title">Non-Verbal Reasoning Quiz</h1>
-        <p>{{msg}}</p>
+          <h2>Login</h2>
+          <form action = "{{ url_for('login') }}" method = "POST">
+            <p>Email ID: <input type = "email" name = "email" placeholder="enter your email"/></p>
+            <p><input type = "submit" value = "Login" /></p>
+         </form>
       </div>
     </header>
 

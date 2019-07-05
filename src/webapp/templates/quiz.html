@@ -3,6 +3,10 @@
    <head>
       <title>NVR Quiz</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script
+         src="https://code.jquery.com/jquery-3.4.1.js"
+         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+         crossorigin="anonymous"></script>
    </head>
         
    <body>
@@ -10,18 +14,29 @@
       <img width="200" height="200" src="data:image/png;base64,{{question}}"/>
       <hr>
       <form id="questionSubmission" action = "{{ url_for('feedback') }}" method = "POST">
-         <input type="radio" name="options" id={{option}} value={{option}} />
-            <img width="200" height="200" src="data:image/png;base64,{{answer}}"/>
-         </input>
-         <input type="radio" name="options" id={{option}} value={{option}} />
-            <img width="200" height="200" src="data:image/png;base64,{{dist_1}}"/>
-         </input>
-         <input type="radio" name="options" id={{option}} value={{option}} />
-            <img width="200" height="200" src="data:image/png;base64,{{dist_2}}"/>
-         </input>
-         <input type="radio" name="options" id={{option}} value={{option}} />
-            <img width="200" height="200" src="data:image/png;base64,{{dist_3}}"/>
-         </input>
+         <div id="radio_buttons">
+            <label>
+               <input type="radio" name="options" value="{{answer}}" />
+                  <img width="200" height="200" src="data:image/png;base64,{{answer}}" alt="answer"/>
+               </input>
+            </label>
+            <label>
+               <input type="radio" name="options" value="{{dist_1}}" />
+                  <img width="200" height="200" src="data:image/png;base64,{{dist_1}}" alt="dist_1"/>
+               </input>
+            </label>
+            <label>
+               <input type="radio" name="options" value="{{dist_2}}" />
+                  <img width="200" height="200" src="data:image/png;base64,{{dist_2}}" alt="dist_2"/>
+               </input>
+            </label>
+            <label>
+               <input type="radio" name="options" value="{{dist_3}}" />
+                  <img width="200" height="200" src="data:image/png;base64,{{dist_3}}" alt="dist_3"/>
+               </input>
+            </label>
+         </div>
+         
          <br/>
 
          <p><input type='hidden' id='timeTaken' name='timeTaken' value='' /></p>
@@ -37,6 +52,14 @@
 
          window.onload = function() {
             window.setInterval(add_time, 1000);
+
+            // to shuffle the options
+            var options = $("#radio_buttons");
+            options.html(
+               options.find("label").sort(function(){
+                  return Math.round(Math.random())-0.5;
+               })
+            );
          }
 
          function updateTime() {

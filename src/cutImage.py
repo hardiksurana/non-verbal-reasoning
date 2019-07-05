@@ -255,8 +255,8 @@ class Cut:
         cv2.imwrite(self.answer_path, quad)
         cv2.imwrite(self.question_path, rest_img)
         draw_boundary(self.quadrantNum, self.question_path)
-        os.system(' convert '+ self.question_path +'  -bordercolor Black -border 8x8 '+ self.question_path)
-        os.system(' convert '+ self.answer_path +'  -bordercolor Black -border 4x4 '+ self.answer_path)
+        # os.system(' convert '+ self.question_path +'  -bordercolor Black -border 8x8 '+ self.question_path)
+        # os.system(' convert '+ self.answer_path +'  -bordercolor Black -border 4x4 '+ self.answer_path)
 
 
     def genDistractors(self):
@@ -301,7 +301,7 @@ class Cut:
             self.distractors_path.append(distractor_finalPath)
 
             # add border
-            os.system(' convert ' + distractor_finalPath + '  -bordercolor Black -border 4x4 ' + distractor_finalPath)
+            # os.system(' convert ' + distractor_finalPath + '  -bordercolor Black -border 4x4 ' + distractor_finalPath)
             # os.system(' convert '+'./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png'+'  -bordercolor Black -border 8x8 '+'./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png')
     
     def getQuestion(self):

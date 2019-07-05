@@ -114,8 +114,8 @@ def generate_question(question_num, user_id, session_id):
                 dist_binary = f.read()
                 distractors_binary.append(dist_binary)
 
-        insert_query = """INSERT INTO questions (user_id, session_id, question_type, question_img, answer_img, distractor_1_img, distractor_2_img, distractor_3_img) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
-        db.curr.execute(insert_query, (user_id, session_id, "cut", question_binary, answer_binary, distractors_binary[0], distractors_binary[1], distractors_binary[2]))
+        insert_query = """INSERT INTO questions (user_id, session_id, question_type, question_img, answer_img, distractor_1_img, distractor_2_img, distractor_3_img, num_polygons) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        db.curr.execute(insert_query, (user_id, session_id, "cut", question_binary, answer_binary, distractors_binary[0], distractors_binary[1], distractors_binary[2], polygon_num))
         db.conn.commit()
         print("question saved in db")
 
@@ -142,8 +142,10 @@ def generate_question(question_num, user_id, session_id):
     
     select_query = """SELECT question_id from questions WHERE user_id=%s AND session_id=%s"""
     db.curr.execute(select_query, (user_id, session_id))
-    if db.curr.rowcount == 1:
-        return db.curr.fetchall()[0]
+    if db.curr.rowcount > 0:
+        print("question id in genrateQuestion = ")
+        result = db.curr.fetchall()[-1]
+        return result
     else:
         print("failed to retrieve question from db")
         return -1

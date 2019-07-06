@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Homepage | NVR Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <body>
+    <header>
+      <div class="container">
+        <h1 class="title">Non-Verbal Reasoning Quiz</h1>
+        <h2>Leaderboard</h2>
+        <table border=1>
+            <tr>
+                <th>Email</th>
+                <th>% correct score</th>
+                <th>Avg. time taken</th>
+            </tr>
+            {% for person in leaderboard %}
+                <tr>
+                    <td>
+                        {{person['email']}}
+                    </td>
+                    <td>
+                        {{person['percentage']}}
+                    </td>
+                    <td>
+                        {{person['TIME_TAKEN']}}
+                    </td>
+                </tr>   
+            {% endfor %}
+        </table>
+      </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+  </body>
+</html>

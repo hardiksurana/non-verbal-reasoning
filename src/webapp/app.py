@@ -28,8 +28,52 @@ student_details = None
 
 db = MySQL()
 
-def calculate(questions, responses):
-    pass
+def calculate_score_report():
+    # finds the number of correct answers for current user in current session
+    select_correct_answers_query = """SELECT COUNT(*) AS score FROM responses JOIN questions WHERE responses.question_id=questions.question_id AND responses.user_id=%s AND responses.session_id=%s AND TO_BASE64(questions.answer_img)=TO_BASE64(responses.response_img)"""
+    db.curr.execute(select_correct_answers_query, (session['user_id'], session['session_id']))
+    if db.curr.rowcount > 0:
+        score = db.curr.fetchall()[0]['score']
+
+        # find total number of questions by current user in current session
+        select_count_questions_query = """SELECT COUNT(*) AS num_questions FROM questions WHERE questions.user_id=%s AND questions.session_id=%s"""
+        db.curr.execute(select_count_questions_query, (session['user_id'], session['session_id']))
+        if db.curr.rowcount > 0:
+            num_questions = db.curr.fetchall()[0]['num_questions']
+            return (score, num_questions)
+
+def calculate_leaderboard():
+    leaderboard_select_query = """SELECT score, num_questions, TIME_TAKEN, email, ROUND(score*100/num_questions, 0) AS percentage FROM 
+    (
+        SELECT COUNT(*) AS score, responses.user_id AS RES_UID 
+        FROM responses JOIN questions 
+        WHERE responses.question_id=questions.question_id AND TO_BASE64(questions.answer_img)=TO_BASE64(responses.response_img) 
+        GROUP BY RES_UID
+    ) ans 
+    JOIN 
+    (
+        SELECT COUNT(*) AS num_questions, user_id as QUE_UID 
+        FROM questions 
+        GROUP BY QUE_UID
+    ) que on ans.RES_UID=que.QUE_UID 
+    JOIN 
+    (
+        SELECT avg(time_taken_in_secs) as TIME_TAKEN, user_id as TIME_UID 
+        from responses 
+        group by user_id
+    ) time on que.QUE_UID=time.TIME_UID 
+    JOIN 
+    (
+        SELECT email, user_id AS USER_UID 
+        from users
+    ) USER ON time.TIME_UID=USER.USER_UID
+    ORDER BY percentage DESC"""
+    
+    db.curr.execute(leaderboard_select_query)
+    if db.curr.rowcount > 0:
+        return db.curr.fetchall()
+    else:
+        return []
 
 @app.route('/', methods = ['GET'])
 def home():
@@ -167,18 +211,17 @@ def generate():
                 dist_3 = result[0]['dist_3_img']
             )
     else:
-        # clear the session
-        session.pop('user_id', None)
-        session.pop('session_id', None)
-        session.pop('question_id', None)
-        session.pop('response_id', None)
-        session.pop('current_question', None)
+        # quiz has ended, calculate score
+        score, num_questions = calculate_score_report()
         print("quiz is completed")
-        return render_template('main.html', login_msg="You have completed the quiz!")
-        # result = calculate(questions, responses)
+        if isinstance(score, int) and isinstance(num_questions, int) and num_questions > 0:
+            return render_template('main.html', login_msg="You have completed the quiz! Your score is {0}%".format(str(float((score*100)/num_questions))))
 
+
+@app.route('/leaderboard', methods = ['GET'])
+def leaderboard():
+    result = calculate_leaderboard()
+    return render_template("leaderboard.html", leaderboard=result)
 
 if __name__ == "__main__":
-    # app.run(debug=True, port=9000)
     app.run(host="0.0.0.0", debug=True, port=5000)
-    # app.run()

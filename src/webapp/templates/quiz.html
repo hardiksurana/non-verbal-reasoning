@@ -1,72 +1,131 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>NVR Quiz</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script
-         src="https://code.jquery.com/jquery-3.4.1.js"
-         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-         crossorigin="anonymous"></script>
-   </head>
-        
-   <body>
-      <p>{{ question_text }}</p>
-      <img width="200" height="200" src="data:image/png;base64,{{question}}"/>
-      <hr>
-      <form id="questionSubmission" action = "{{ url_for('feedback') }}" method = "POST">
-         <div id="radio_buttons">
-            <label>
-               <input type="radio" name="options" value="{{answer}}" />
-                  <img width="200" height="200" src="data:image/png;base64,{{answer}}" alt="answer"/>
-               </input>
-            </label>
-            <label>
-               <input type="radio" name="options" value="{{dist_1}}" />
-                  <img width="200" height="200" src="data:image/png;base64,{{dist_1}}" alt="dist_1"/>
-               </input>
-            </label>
-            <label>
-               <input type="radio" name="options" value="{{dist_2}}" />
-                  <img width="200" height="200" src="data:image/png;base64,{{dist_2}}" alt="dist_2"/>
-               </input>
-            </label>
-            <label>
-               <input type="radio" name="options" value="{{dist_3}}" />
-                  <img width="200" height="200" src="data:image/png;base64,{{dist_3}}" alt="dist_3"/>
-               </input>
-            </label>
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>Take Quiz | NVR Quiz</title>
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <!-- Bootstrap JS -->
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+
+   <style type="text/css">
+      input[type="radio"], label{
+         vertical-align: baseline;
+         padding: 10px;
+         margin: 10px;
+      }
+   </style>
+</head>
+
+<body>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+         <a class="navbar-brand" href="#">Non-Verbal Reasoning Quiz</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+      </div>
+   </nav>
+   <div class="container">
+      <br>
+      <div class="card">
+         <div class="card-body">
+            <div class="question">
+               <p class="lead">{{ question_text }}</p>
+               <img class="img-thumbnail" src="data:image/png;base64,{{question}}"
+                  style="display: block; width: 200px; height: 200px;" />
+            </div>
+            <br />
+            <br />
+
+            <form id="questionSubmission" action="{{ url_for('feedback') }}" method="POST">
+               <div id="radio_buttons">
+                  <div class="form-group row">
+
+                     <div class="form-check col-lg-3">
+                        <label>
+                           <input class="form-check-input" type="radio" name="options" value="{{answer}}" required>
+                           <img class="img-thumbnail" src="data:image/png;base64,{{answer}}" alt="answer"
+                              style="display: inline-block; width: 200px; height: 200px;" />
+                           </input>
+                        </label>
+                     </div>
+
+                     <div class="form-check col-lg-3">
+                        <label>
+                           <input class="form-check-input" type="radio" name="options" value="{{dist_1}}">
+                           <img class="img-thumbnail" src="data:image/png;base64,{{dist_1}}" alt="dist_1"
+                              style="display: inline-block; width: 200px; height: 200px;" />
+                           </input>
+                        </label>
+                     </div>
+
+                     <div class="form-check col-lg-3">
+                        <label>
+                           <input class="form-check-input" type="radio" name="options" value="{{dist_2}}">
+                           <img class="img-thumbnail" src="data:image/png;base64,{{dist_2}}" alt="dist_2"
+                              style="display: inline-block; width: 200px; height: 200px;" />
+                           </input>
+                        </label>
+                     </div>
+
+                     <div class="form-check col-lg-3">
+                        <label>
+                           <input class="form-check-input" type="radio" name="options" value="{{dist_3}}">
+                           <img class="img-thumbnail" src="data:image/png;base64,{{dist_3}}" alt="dist_3"
+                              style="display: inline-block; width: 200px; height: 200px;" />
+                           </input>
+                        </label>
+                     </div>
+
+                  </div>
+               </div>
+
+               <br>
+               <p><input type='hidden' id='timeTaken' name='timeTaken' value='' /></p>
+               <button type="button" class="btn btn-primary" onclick="updateTime()">Submit</button>
+            </form>
          </div>
-         
-         <br/>
+      </div>
+   </div>
 
-         <p><input type='hidden' id='timeTaken' name='timeTaken' value='' /></p>
-         <p><input type="button" value="Submit" onclick="updateTime()"/></p>
-      </form>
+   <script type="text/javascript">
+      var time_in_secs = 0
+      function add_time() {
+         time_in_secs = time_in_secs + 1
+         console.log(time_in_secs)
+      }
 
-      <script type="text/javascript">
-         var time_in_secs = 0
-         function add_time() {
-            time_in_secs = time_in_secs + 1
-            console.log(time_in_secs)
-         }
+      window.onload = function () {
+         window.setInterval(add_time, 1000);
 
-         window.onload = function() {
-            window.setInterval(add_time, 1000);
+         // to shuffle the options
+         var options = $("#radio_buttons");
+         options.html(
+            options.find("label").sort(function () {
+               return Math.round(Math.random()) - 0.5;
+            })
+         );
+      }
 
-            // to shuffle the options
-            var options = $("#radio_buttons");
-            options.html(
-               options.find("label").sort(function(){
-                  return Math.round(Math.random())-0.5;
-               })
-            );
-         }
+      function updateTime() {
+         document.getElementById("timeTaken").value = time_in_secs.toString();
+         clearInterval(add_time)
+         document.getElementById("questionSubmission").submit();
+      }
+   </script>
+</body>
 
-         function updateTime() {
-            document.getElementById("timeTaken").value = time_in_secs.toString();
-            clearInterval(add_time)
-            document.getElementById("questionSubmission").submit();
-         }
-      </script>
-   </body>
 </html>

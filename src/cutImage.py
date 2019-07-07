@@ -15,16 +15,12 @@ def draw_boundary(quad_number,filename):
     height, width = img.shape
     if quad_number == 0:
         os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+',0 '+str(width/2)+','+str(height/2)+'\" ' + filename )
-        # print('convert '+filename+' -fill white -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+',0 '+str(width/2)+','+str(height/2)+'\" ' + filename )
     elif quad_number == 1:
         os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 5 3 rectangle 0,0 '+str(width/2)+','+str(height/2)+'\" ' + filename)
-        # print('convert '+filename+' -fill white -draw \"stroke-dasharray 5 3 rectangle 0,0 '+str(width/2)+','+str(height)+'\" ' + filename)
     elif quad_number == 2:
         os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 10 4 rectangle 0,'+str(height/2)+' '+str(width/2)+','+str(height)+'\" ' + filename)
-        # print('convert '+filename+' -fill white -draw \"stroke-dasharray 5 3 rectangle 0,'+str(height/2)+' '+str(width/2)+','+str(height/2)+'\" ' + filename)
     elif quad_number == 3:
         os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+','+str(height/2)+' '+str(width)+','+str(height)+'\" ' + filename)
-        # print('convert '+filename+' -fill black -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+','+str(height/2)+' '+str(width/2)+','+str(height/2)+'\" ' + filename )
 
 
 def apply(polys,func_names,params):
@@ -238,7 +234,7 @@ class Cut:
 
         plt.axis('image')
         plt.axis('off')
-        question_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_question_'+str(self.questionCount)+'.png'
+        question_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_cut_question_'+str(self.questionCount)+'.png'
         plt.savefig(question_tmpPath)
 
         # crop the question image
@@ -247,8 +243,8 @@ class Cut:
         cv2.imwrite(question_tmpPath, img)
 
         # remove one quadrant from question and generate answer
-        self.question_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_question_'+str(self.questionCount)+'.png'
-        self.answer_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_answer_'+str(self.questionCount)+'.png'
+        self.question_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_cut_question_'+str(self.questionCount)+'.png'
+        self.answer_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_cut_answer_'+str(self.questionCount)+'.png'
 
         img = cv2.imread(question_tmpPath, 0)
         quad, rest_img = splitQuad(img, self.quadrantNum)
@@ -278,7 +274,7 @@ class Cut:
             plt.axis('image')
             plt.axis('off')
 
-            distractor_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
+            distractor_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_cut_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
             plt.savefig(distractor_tmpPath)
 
             # crop the image
@@ -289,11 +285,7 @@ class Cut:
             # remove one quadrant from distractor full image and generate options
             img = cv2.imread(distractor_tmpPath, 0)
             quad, rest_img = splitQuad(img, self.quadrantNum)
-
-
-
-
-            distractor_finalPath = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
+            distractor_finalPath = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_cut_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'
             cv2.imwrite(distractor_finalPath, quad)
             # cv2.imwrite('./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png',rest_img)
 
@@ -305,11 +297,9 @@ class Cut:
             # os.system(' convert '+'./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png'+'  -bordercolor Black -border 8x8 '+'./plot/quads/plotRest'+str(l)+'Dist'+str(j)+'.png')
     
     def getQuestion(self):
-        # return os.path.split(self.question_path)[1]
         return self.question_path
     
     def getAnswer(self):
-        # return os.path.split(self.answer_path)[1]
         return self.answer_path
     
     def getDistractors(self):

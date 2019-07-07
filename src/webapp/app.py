@@ -43,7 +43,7 @@ def calculate_score_report():
             return (score, num_questions)
 
 def calculate_leaderboard():
-    leaderboard_select_query = """SELECT score, num_questions, TIME_TAKEN, email, ROUND(score*100/num_questions, 0) AS percentage FROM 
+    leaderboard_select_query = """SELECT score, num_questions, num_attempts, TIME_TAKEN, email, ROUND(score*100/num_questions, 0) AS percentage FROM 
     (
         SELECT COUNT(*) AS score, responses.user_id AS RES_UID 
         FROM responses JOIN questions 
@@ -52,7 +52,7 @@ def calculate_leaderboard():
     ) ans 
     JOIN 
     (
-        SELECT COUNT(*) AS num_questions, user_id as QUE_UID 
+        SELECT COUNT(question_id) AS num_questions, COUNT(DISTINCT(session_id)) as num_attempts, user_id as QUE_UID 
         FROM questions 
         GROUP BY QUE_UID
     ) que on ans.RES_UID=que.QUE_UID 
@@ -88,6 +88,8 @@ def home():
         session.pop('question_id', None)
     if 'response_id' in session:
         session.pop('response_id', None)
+
+    print("previous session cleared")
     return render_template('login.html')
 
 @app.route('/login', methods = ['POST'])
@@ -110,6 +112,10 @@ def login():
     else:
         print("user not found in db")
         return render_template('register.html')
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    return redirect('/', code=302)
 
 @app.route('/register', methods = ['POST'])
 def register():

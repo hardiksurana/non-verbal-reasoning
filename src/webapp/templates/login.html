@@ -24,7 +24,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Non-Verbal Reasoning Quiz</a>
+      <a class="navbar-brand" href="{{ url_for('home')}}">Non-Verbal Reasoning Quiz</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,7 +32,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{ url_for('home')}}">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('leaderboard')}}">Leaderboard</a>
@@ -41,85 +41,99 @@
       </div>
 
       <form class="form-inline" action="{{ url_for('login') }}" method="POST">
-        <input class="form-control mr-sm-2" type="email" name="email" placeholder="enter your email" aria-label="login">
-        <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
+        <input class="form-control mr-sm-2" type="email" name="email" placeholder="enter your email id" aria-label="login" required>
+        <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
       </form>
     </div>
   </nav>
   <div class="container-fluid">
-    <div class="jumbotron">
-      <h1 class="title">Non-Verbal Reasoning Quiz</h1>
-      <p>This webpage allows you to attempt a quiz as a participant in a research study being conducted to study the
-        generation of non-verbal reasoning questions</p>
+    <div class="jumbotron" style="text-align: center; height: 100%; width: 100%">
+      <h1 class="title display-4">Non-Verbal Reasoning Quiz</h1>
+      <p class="lead">Welcome! You are a participant in a live research study being conducted to evaluate non-verbal reasoning questions</p>
+      <div class="alert alert-warning" role="alert" style="display: inline;">
+        <span style="font-weight: bold"> Disclaimer </span>: We do not store any of your personal data. The results are collected and stored anonymously and used solely for research purposes. 
+      </div>
     </div>
     <div class="container">
-      <p>You will attempt the following question types</p>
-      <div class="row">
-        <div class="col-sm">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Cut</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            </div>
-          </div>
+      <div class="section" style="height: 100%; width: 100%">
+        <p class="lead">Kindly follow the following instructions for each attempt of the quiz:</p>
+        <div class="alert alert-info" role="alert" style="display: inline-block;">
+          Multiple attempts are severely encouraged!
         </div>
-        <div class="col-sm">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Dice</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Fold</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            </div>
-          </div>
-        </div>
+        <ol>
+          <li>Login with your email address</li>
+          <ul>
+            <li>If you have logged in for the first time, you will be prompted to enter a few basic details <span style="font-weight: bold">(Again, only for research purposes!)</span></li>
+          </ul>
+          <li>Click on the 'Take New Quiz' button</li>
+          <li>You will be presented with a multiple-choice question with 4 answer options</li>
+          <li>Attempt the question by choosing the answer you think is right</li>
+          <li>For each question, you will be asked to fill some feedback. Please <span style="font-weight: bold">provide your honest feedback</span> to help us improve.</li>
+          <li>Submit the quiz</li>
+          <li>You can view your score at the end of the quiz</li>
+        </ol>
       </div>
-      <br />
-      <div class="row">
-        <div class="col-sm">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Sequence</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+    </div>
+    <hr>
+    <div class="container">
+      <div class="section" style="height: 100%; width: 100%">
+        <p class="lead">You will attempt the following question types:</p>
+        <div class="row">
+          <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Cut</h5>
+                <p class="card-text">A figure is given and a part of it is cut out. You have to identify which of the options completes the figure.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Dice</h5>
+                <p class="card-text">An open cube figure is given. You have to identify which of the options best describes a cube made out of the given paper piece.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Fold</h5>
+                <p class="card-text">An unfolded figure is given. You have to identify how the pattern would appear when the paper is folded on the dotted line.</p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-sm">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Grid</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+        <br />
+        <div class="row">
+          <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Figure Matrix and Sequence</h5>
+                <p class="card-text">A matrix of blocks are given, each of which follow a pattern. You have to identify which of the options continues the pattern.</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Series</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+          <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Grid</h5>
+                <p class="card-text">A variety of patterns are given as a grid. You have to identify which of the options follows the pattern.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Series</h5>
+                <p class="card-text">A series of figures are given which follow a certain pattern of transformation. You have to identify which of the options is the next figure in the series.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
-
-  {% block content %}
-  {% endblock %}
-
+  <br>
 </body>
-
 </html>

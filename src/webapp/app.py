@@ -16,7 +16,7 @@ app.secret_key = "non_verbal_reasoning"
 app.config['UPLOAD_FOLDER'] = '/Users/hardik/Desktop/projects/turtle/webapp/static/result/'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-NUM_QUESTIONS = 2   # number of questions in quiz
+NUM_QUESTIONS = 4   # number of questions in quiz
 NUM_POLYGONS = 2    # indicative of difficulty level
 NUM_OPTIONS = 3     # number of answer options
 questions = dict()
@@ -154,7 +154,7 @@ def enterQuiz():
     if db.curr.rowcount > 0:
         result = db.curr.fetchall()[0]
         return render_template("quiz.html", 
-            question_text = "identify the missing piece of the image",
+            question_text = "Identify the piece that completes the figure.",
             question = result['ques_img'],
             answer = result['ans_img'],
             dist_1 = result['dist_1_img'],
@@ -199,6 +199,27 @@ def generate():
     print("feedback data updated to responses table")
     
     session['current_question'] += 1
+    # cut
+    if session['current_question'] in [1, 2]:
+        question_text = "Identify the piece that completes the figure."
+    # dice
+    elif session['current_question'] in [3, 4]:
+        question_text = "Choose the box that is made out of the given piece of paper."
+    # fold
+    elif session['current_question'] in [5, 6]:
+        question_text = "Find out amongst the four alternatives as to how the pattern would appear when the paper is folded on the dotted line."
+    # figure matrix and sequence
+    elif session['current_question'] in [7, 8]:
+        question_text = "Select the figure which will continue the same series as the given 5 images."
+    # series
+    elif session['current_question'] in [9, 10]:
+        question_text = "Guess the next figure in the series."
+    # grid
+    elif session['current_question'] in [11, 12]:
+        question_text = "Which option replaces the question mark?"
+    else:
+        question_text = "Select the option that best completes the figure."
+
     if session['current_question'] <= NUM_QUESTIONS:
         # generate the quiz questions
         question_id = generate_question(session['current_question'], session['user_id'], session['session_id'])['question_id']
@@ -209,7 +230,7 @@ def generate():
         if db.curr.rowcount > 0:
             result = db.curr.fetchall()
             return render_template("quiz.html", 
-                question_text = "identify the missing piece of the image",
+                question_text = question_text,
                 question = result[0]['ques_img'],
                 answer = result[0]['ans_img'],
                 dist_1 = result[0]['dist_1_img'],

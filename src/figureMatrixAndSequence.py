@@ -57,6 +57,116 @@ def draw_polygon_grid(poly, index):
     poly.drawPolygon()
 
 
+
+
+class FigureMatrixAndSequence:
+    def __init__(self, user_id, session_id, questionCount):
+        self.user_id = str(user_id)
+        self.session_id = str(session_id)
+        self.questionCount = questionCount
+        self.question_path = ''
+        self.answer_path = ''
+        self.distractors_path = []
+        self.STATIC_ROOT = '/Users/hardik/Desktop/projects/turtle/src/webapp/static/'
+        self.logic_choice = random.random()
+
+    def generate_question(self):
+        plt.figure()
+        draw_grid()
+        polys = []
+        XX = 0
+        if self.logic_choice < 0.5:
+            a = range(1, 10)
+            random.shuffle(a)
+            rank = random.choice([a, [a[i] for i in range(int(random.random()*9))]])
+        else:
+            rank = range(1, 10)
+            random.shuffle(rank)
+            hatches = ['-', '+', 'x', '\\', '*', 'o', 'O', '.', '/', '|']
+            random.shuffle(hatches)
+        
+        for i in rank:
+            if self.logic_choice < 0.5:
+                temp = Polygon(no_of_sides=int(random.random()*6), isRegular=False, hatch='random')
+            else:
+                temp = Polygon(no_of_sides=int(random.random()*6)+3, isRegular=False, hatch=hatches[i % 10])
+
+            draw_polygon_grid(temp, i)
+            polys.append(temp)
+            XX += 1
+        
+        # question
+        plt.axis('off')
+        plt.axis('image')
+        question_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_figureMatrix_question_'+str(self.questionCount)+'_part_' + str(0) + '.png'
+
+        plt.savefig(question_tmpPath, dpi=150)
+        img = cv2.imread(question_tmpPath, 0)
+        img = cropImage(img)
+        cv2.imwrite(question_tmpPath, img)
+
+        # generates remaining 4 parts for question
+        for i in range(1, 5):
+            plt.figure()
+            draw_grid()
+
+            # shift polygons by one position
+            temp_circumcircle = polys[0].circumcircle
+            for i in range(len(polys)-1):
+                polys[i].circumcircle = polys[i+1].circumcircle
+            polys[len(polys)-1].circumcircle = temp_circumcircle
+
+            for i in range(len(polys)):
+                polys[i].gen_points()
+                polys[i].drawPolygon()
+
+            plt.axis('off')
+            plt.axis('image')
+            question_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_figureMatrix_question_'+str(self.questionCount)+'_part_' + str(i) + '.png'
+            plt.savefig(question_tmpPath, dpi=150)
+
+            img = cv2.imread(question_tmpPath, 0)
+            img = cropImage(img)
+            cv2.imwrite(question_tmpPath, img)
+        
+        self.question_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_figureMatrix_question_'+str(self.questionCount) + '.png'
+        print('montage -mode concatenate -tile 5x1 -border 5 ' + self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_figureMatrix_question_'+str(self.questionCount)+'_part_[0-4].png ' + self.question_path)
+        os.system('montage -mode concatenate -tile 5x1 -border 5 ' + self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_figureMatrix_question_'+str(self.questionCount)+'_part_[0-4].png ' + self.question_path)
+
+    
+    def generate_options(self):
+        for _ in range(8):
+            plt.figure()
+            draw_grid()
+            # shift polygons by one position
+            temp_circumcircle = polys[0].circumcircle
+            for i in range(len(polys)-1):
+                polys[i].circumcircle = polys[i+1].circumcircle
+            polys[len(polys)-1].circumcircle = temp_circumcircle
+
+            for i in range(len(polys)):
+                polys[i].gen_points()
+                polys[i].drawPolygon()
+
+            plt.axis('off')
+            plt.axis('image')
+            plt.savefig('./grid'+str(_)+'.png', dpi=150)
+
+            img = cv2.imread('./grid'+str(_)+'.png', 0)
+            img = cropImage(img)
+            cv2.imwrite('./grid'+str(_)+'.png', img)
+        
+        os.system('montage -mode concatenate -tile 5x1 -border 5 grid.png grid[0-3].png grid_final.png')
+        names = ['grid4.png', 'grid5.png', 'grid6.png', 'grid7.png']
+        random.shuffle(names)
+        os.system('montage -mode concatenate -tile 4x1 -border 5 ' + ' '.join(names)+' grid_options.png')
+
+
+if __name__ == "__main__":
+    f = FigureMatrixAndSequence(1, "abc", 1)
+    f.generate_question()
+
+"""
 if random.random() < 0.5:
     ####################################################################################
     # LOGIC 1
@@ -244,3 +354,4 @@ else:
 # img = cv2.imread('./grid3.png',0)
 # img = cropImage(img)
 # cv2.imwrite('./grid3.png',img)
+"""

@@ -59,7 +59,7 @@ for l in range(3):
             B.drawPolygon()
             seqs_of_polygons.append(B)
             A.circumcircle.radius = B.circumcircle.radius
-                
+
         plt.axis('image')
         plt.axis('off')
         # No axis to be drawn
@@ -70,9 +70,12 @@ for l in range(3):
         cv2.imwrite('./plot/trans/plot'+str(l)+'.png',img)
         
 
-        plt.figure()    
+        plt.figure()
+        # transformations for each embedded polygon  
+        # TODO: shuffle order and rules to generate distractors
         for i in range(len(seqs_of_polygons)):
             if i == 0:
+                # vertical flip
                 seqs_of_polygons[i].flip()
             elif i == 1:
                 seqs_of_polygons[i].rotate(math.pi * 0.5)

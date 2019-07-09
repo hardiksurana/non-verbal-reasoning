@@ -46,19 +46,24 @@ img = cv2.imread('./merge.png',0)
 print img.shape
 
 height, width = img.shape
+# gives transparent image
 os.system('convert fold1.png -strokewidth 1 -fill none -stroke black -draw \"stroke-dasharray 5 3 line '+str(width/2)+',0 '+str(width/2)+','+str(height)+'\" draw_fold.png')
 os.system('convert merge.png -strokewidth 1 -fill none -stroke black -draw \"stroke-dasharray 5 3 line '+str(width/2)+',0 '+str(width/2)+','+str(height)+'\" draw_merge.png')
-os.system('convert draw_merge.png  -fill white -draw "rectangle 0,0 '+str(width/2)+','+str(height)+'" draw_final.png')
-
-os.system('convert -flatten draw_fold.png draw_fold.png')
-os.system('convert -flatten draw_merge.png draw_merge0.png')
-os.system('convert -flatten draw_final.png draw_final0.png')
+# os.system('convert draw_merge.png  -fill white -draw "rectangle 0,0 '+str(width/2)+','+str(height)+'" draw_final.png')
+os.system('convert draw_merge.png  -fill white -draw "rectangle 0,0 '+str(width)+','+str(height)+'" draw_final.png')
 
 
+# adds white bg
+os.system('convert -flatten draw_fold.png draw_fold.png') # question
+os.system('convert -flatten draw_merge.png draw_merge.png') # intermediate output
+os.system('convert -flatten draw_final.png draw_final.png') # answer
 
+
+# distractors
 for j in range(3):
     
     plt.figure()    
+    # additional transformation
     for temp in polys:                
         
         if random.random() <= 0.5:
@@ -70,6 +75,8 @@ for j in range(3):
     plt.axis('image')
     plt.axis('off')
     # plt.show()
+
+    # same base image
     plt.savefig('./fold1.png',transparent=True)
 
     # save a flipped version 
@@ -88,9 +95,9 @@ for j in range(3):
     os.system('convert merge.png -strokewidth 1 -fill none -stroke black -draw \"stroke-dasharray 5 3 line '+str(width/2)+',0 '+str(width/2)+','+str(height)+'\" draw_merge.png')
     os.system('convert draw_merge.png  -fill white -draw "rectangle 0,0 '+str(width/2)+','+str(height)+'" draw_final.png')
 
-    os.system('convert -flatten draw_fold.png draw_fold.png')
-    os.system('convert -flatten draw_merge.png draw_merge'+str(j)+'.png')
-    os.system('convert -flatten draw_final.png draw_final'+str(j)+'.png')
+    os.system('convert -flatten draw_fold.png draw_fold.png') # base distractor
+    os.system('convert -flatten draw_merge.png draw_merge'+str(j)+'.png') # intermediate distractor output
+    os.system('convert -flatten draw_final.png draw_final'+str(j)+'.png') # final transformed distractor - folded
 
 #################GENERATE DISTRACTORS
 ## We rotate by 45/90

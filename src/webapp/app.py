@@ -8,7 +8,7 @@ import base64
 import sys, os
 sys.path.insert(0, os.path.dirname(os.getcwd()))
 
-from generateQuestionPaper import generate_questions, generate_question
+from generateQuestionPaper import generate_question
 
 # create the application object
 app = Flask(__name__)

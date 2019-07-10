@@ -12,6 +12,7 @@ from cutImage import Cut
 from dice import Dice
 from series import Series
 from figureMatrixAndSequence import FigureMatrixAndSequence
+from fold import Fold
 import json
 from webapp.mysql_utils import MySQL
 
@@ -84,7 +85,28 @@ def generate_question(question_num, user_id, session_id):
     # fold
     # elif question_num in [5, 6]:
     if question_num in [1,2]:
-        pass
+        f = Fold(user_id, session_id, question_num)
+        f.generate_all_images()
+        question_filepath = f.get_question()
+        answer_filepath = f.get_answer()
+        distractors_filepaths = f.get_distractors()
+
+        with open(question_filepath, 'rb') as f:
+            question_binary = f.read()
+
+        with open(answer_filepath, 'rb') as f:
+            answer_binary = f.read()
+
+        distractors_binary = []
+        for distractors_filepath in distractors_filepaths:
+            with open(distractors_filepath, 'rb') as f:
+                dist_binary = f.read()
+                distractors_binary.append(dist_binary)
+
+        insert_query = """INSERT INTO questions (user_id, session_id, question_type, question_img, answer_img, distractor_1_img, distractor_2_img, distractor_3_img, num_polygons) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        db.curr.execute(insert_query, (user_id, session_id, "fold", question_binary, answer_binary, distractors_binary[0], distractors_binary[1], distractors_binary[2], 0))
+        db.conn.commit()
+        print("fold question saved in db")
 
     # figure matrix and sequence
     # elif question_num in [7, 8]:

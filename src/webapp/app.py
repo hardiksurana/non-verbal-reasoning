@@ -16,15 +16,8 @@ app.secret_key = "non_verbal_reasoning"
 app.config['UPLOAD_FOLDER'] = '/Users/hardik/Desktop/projects/turtle/webapp/static/result/'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-NUM_QUESTIONS = 4   # number of questions in quiz
-NUM_POLYGONS = 2    # indicative of difficulty level
-NUM_OPTIONS = 3     # number of answer options
-questions = dict()
-responses = dict()
-feedback_dict = dict()
-
-# current_question = 1
-student_details = None
+# total number of questions in quiz
+NUM_QUESTIONS = 2
 
 db = MySQL()
 

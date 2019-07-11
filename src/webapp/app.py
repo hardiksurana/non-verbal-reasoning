@@ -1,14 +1,15 @@
 from flask import Flask, render_template, redirect, url_for, request, session
-from mysql_utils import MySQL
+# from mysql_utils import MySQL
+from src.webapp.mysql_utils import MySQL
 import requests
 from random import shuffle
 import json
 import uuid
 import base64
 import sys, os
-sys.path.insert(0, os.path.dirname(os.getcwd()))
-
-from generateQuestionPaper import generate_question
+# sys.path.insert(0, os.path.dirname(os.getcwd()))
+# from generateQuestionPaper import generate_question
+from src.generateQuestionPaper import generate_question
 
 # create the application object
 app = Flask(__name__)

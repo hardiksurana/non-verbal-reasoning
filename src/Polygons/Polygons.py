@@ -1,15 +1,10 @@
-# -*- coding: utf-8 -*-
-
-# Pythons math library (math.sin, math.cos) works with radians
-# All angles in this project are radians
-# All angles are measured from the X-axis anti-clockwise
-
-
+import sys
+import matplotlib
+matplotlib.use('Agg')
 import random
 import math
 import string
-import matplotlib as mpl
-mpl.use('Agg')
+# import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 
@@ -279,8 +274,8 @@ class Polygon:
         # arrow = plt.arrow(self.points[0][0], self.points[0][1], self.points[1][0]-self.points[0][0],self.points[1][1]-self.points[0][1],fc="k", ec="k",head_width=0.05, head_length=0.1)
         # arrow = plt.arrow( 0.5, 0.8, 0.0, -0.2, fc="k", ec="k",head_width=0.05, head_length=0.1 )
         # arrow= plt.arrow(0, 0, 0.5, 0.5, head_width=0.05, head_length=0.1, fc='k', ec='k')
-        print self.points[0][0], self.points[0][1], self.points[1][0] - \
-            self.points[0][0], self.points[1][1] - self.points[0][1]
+        print(self.points[0][0], self.points[0][1], self.points[1][0] - \
+            self.points[0][0], self.points[1][1] - self.points[0][1])
         x1, y1 = self.points[0]
         x2, y2 = self.points[1]
         dx, dy = x2-x1, y2-y1
@@ -430,7 +425,7 @@ class Polygon:
                     x, y = 2 * self.circumcircle.x - x, y
                     pts.append((x, y))
             elif how == 'hori':
-                print "hori"
+                print("hori")
                 for pt in self.points:
                     x, y = pt
                     x, y = x, 2 * self.circumcircle.y - y
@@ -517,9 +512,9 @@ if __name__ == '__main__':
     plt.figure()
     A = Polygon(no_of_sides=4, isRegular=False, size=10, hatch='random')
     A.makeRandomCircumcircle()
-    print "A circumcircle", A
+    print("A circumcircle", A)
     A.makeShape()
-    print "A angles", A.point_angles
+    print("A angles", A.point_angles)
     # print A,"giri"
     # print A.points
     # A.drawPolygon()

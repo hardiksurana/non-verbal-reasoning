@@ -1,5 +1,5 @@
-from Polygons.Polygons import Polygon,plt,rndangle,Circumcircle
-from Polygons.utils import cropImage,splitQuad
+from src.Polygons.Polygons import Polygon,plt,rndangle,Circumcircle
+from src.Polygons.utils import cropImage,splitQuad
 
 import math,copy, os
 import random
@@ -356,6 +356,7 @@ class Dice:
         self.answer_path = ''
         self.distractors_path = []
         self.STATIC_ROOT = '/Users/hardik/Desktop/projects/turtle/src/webapp/static/'
+        # self.STATIC_ROOT = './webapp/static/'
 
         self.layout_type = random.choice([1, 2, 3, 4, 5])
         self.symbols = ['#','*','-','?','^','**',u'\u2605',u'\u2020',u'\u002B']

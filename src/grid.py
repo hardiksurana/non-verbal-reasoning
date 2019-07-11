@@ -1,5 +1,5 @@
-from Polygons.Polygons import Polygon,plt,rndangle
-from Polygons.utils import cropImage,splitQuad
+from src.Polygons.Polygons import Polygon,plt,rndangle
+from src.Polygons.utils import cropImage,splitQuad
 import PIL.Image as IMG
 import math
 import random
@@ -19,6 +19,7 @@ class Grid:
         self.answer_path = ''
         self.distractors_path = []
         self.STATIC_ROOT = '/Users/hardik/Desktop/projects/turtle/src/webapp/static/'
+        # self.STATIC_ROOT = './webapp/static/'
     
     def generate_all_images(self):
         dist_root_seq_of_polygons = []

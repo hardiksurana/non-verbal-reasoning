@@ -1,5 +1,5 @@
-from Polygons.Polygons import Polygon,plt
-from Polygons.utils import cropImage,splitQuad
+from src.Polygons.Polygons import Polygon,plt
+from src.Polygons.utils import cropImage,splitQuad
 from io import BytesIO
 import base64
 import random, cv2, math, os
@@ -10,8 +10,8 @@ NO_OF_EXAMPLES = 10
 
 def draw_boundary(quad_number,filename):
     img = cv2.imread(filename,0)
-    print img.shape
-    print filename
+    print(img.shape)
+    print(filename)
     height, width = img.shape
     if quad_number == 0:
         os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+',0 '+str(width/2)+','+str(height/2)+'\" ' + filename )
@@ -112,7 +112,7 @@ for l in range(NO_OF_EXAMPLES):
             # FIX : Save the image in high quality 
         plt.savefig('./plot/plot'+str(l)+'Dist'+str(j)+'.png')
 
-print "DRAW DONE."
+print("DRAW DONE.")
 # raw_input()
 
 # Crop those images 
@@ -131,7 +131,7 @@ for l in range(NO_OF_EXAMPLES):
         # save the cropped image
         cv2.imwrite('./plot/plot'+str(l)+'Dist'+str(j)+'.png', img)
 
-print "CROP DONE."
+print("CROP DONE.")
 # raw_input()
 
 for l in range(NO_OF_EXAMPLES):
@@ -194,6 +194,7 @@ class Cut:
         self.distractors_path = []
         self.quadrantNum = random.choice([0,1,2,3])
         self.STATIC_ROOT = '/Users/hardik/Desktop/projects/turtle/src/webapp/static/'
+        # self.STATIC_ROOT = './webapp/static/'
     
     def distractor_sequence(self, A):
         # This stores the polygons that make up an image.

@@ -1,6 +1,6 @@
-from Polygons.Polygons import Polygon,plt,rndangle
+from src.Polygons.Polygons import Polygon,plt,rndangle
+from src.Polygons.utils import cropImage,splitQuad
 import random, os, time, cv2
-from Polygons.utils import cropImage,splitQuad
 
 # def getrndbool():
 #     return random.choice([True, False])
@@ -152,6 +152,7 @@ class Series:
         self.answer_path = ''
         self.distractors_path = []
         self.STATIC_ROOT = '/Users/hardik/Desktop/projects/turtle/src/webapp/static/'
+        # self.STATIC_ROOT = './webapp/static/'
 
         # odd side have one hatch, even have one hatch. series 
         self.XX = int(random.random()*5)+3

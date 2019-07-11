@@ -9,14 +9,14 @@
 
 import argparse
 import json
-from webapp.mysql_utils import MySQL
+from src.webapp.mysql_utils import MySQL
 
-from cutImage import Cut
-from dice import Dice
-from figureMatrixAndSequence import FigureMatrixAndSequence
-from fold import Fold
-from grid import Grid
-from series import Series
+from src.cutImage import Cut
+from src.dice import Dice
+from src.figureMatrixAndSequence import FigureMatrixAndSequence
+from src.fold import Fold
+from src.grid import Grid
+from src.series import Series
 
 def generate_question(question_num, user_id, session_id):
     '''

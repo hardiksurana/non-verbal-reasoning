@@ -1,5 +1,5 @@
-from Polygons.Polygons import Polygon,plt,rndangle,Circumcircle
-from Polygons.utils import cropImage,splitQuad
+from src.Polygons.Polygons import Polygon,plt,rndangle,Circumcircle
+from src.Polygons.utils import cropImage,splitQuad
 
 import math,copy
 import random
@@ -45,7 +45,7 @@ two = IMG.open('base_img_flipped.png').convert('RGBA')
 IMG.alpha_composite(one, two).save("base_merge.png")
 
 img = cv2.imread('./base_merge.png',0)
-print img.shape
+print(img.shape)
 
 height, width = img.shape
 # gives transparent image
@@ -90,7 +90,7 @@ for j in range(3):
     IMG.alpha_composite(one, two).save(dist_name + "_merge.png")
 
     img = cv2.imread('./' + dist_name + '_merge.png',0)
-    print img.shape
+    print(img.shape)
 
     height, width = img.shape
     # os.system('convert fold1.png -strokewidth 1 -fill none -stroke black -draw \"stroke-dasharray 5 3 line '+str(width/2)+',0 '+str(width/2)+','+str(height)+'\" draw_fold.png')
@@ -115,6 +115,7 @@ class Fold:
         self.answer_path = ''
         self.distractors_path = []
         self.STATIC_ROOT = '/Users/hardik/Desktop/projects/turtle/src/webapp/static/'
+        # self.STATIC_ROOT = './webapp/static/'
     
     def generate_all_images(self):
         sides = [0,0,2,4] 
@@ -148,7 +149,7 @@ class Fold:
         IMG.alpha_composite(one, two).save(base_img_merge_filepath)
 
         img = cv2.imread(base_img_merge_filepath, 0)
-        print img.shape
+        print(img.shape)
 
         height, width = img.shape
         # gives transparent image
@@ -193,7 +194,7 @@ class Fold:
             IMG.alpha_composite(one, two).save(dist_base_merge_img)
 
             img = cv2.imread(dist_base_merge_img ,0)
-            print img.shape
+            print(img.shape)
 
             height, width = img.shape
             distractor_final_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_fold_question_'+str(self.questionCount)+'_dist_'+str(j)+'.png'

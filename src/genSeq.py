@@ -1,5 +1,5 @@
-from Polygons.Polygons import Polygon,plt,rndangle
-from Polygons.utils import cropImage,splitQuad
+from src.Polygons.Polygons import Polygon,plt,rndangle
+from src.Polygons.utils import cropImage,splitQuad
 
 import random
 import cv2

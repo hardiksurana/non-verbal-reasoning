@@ -10,7 +10,7 @@ img = cv2.imread('./tmp/dice_1.png',0)
 # img = img[]
 
 # print(img.shape)
-print isSquare(img)
+print(isSquare(img))
 width = img.shape[1]
 height = img.shape[0]
 

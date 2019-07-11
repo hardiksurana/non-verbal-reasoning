@@ -62,3 +62,22 @@ def splitQuad(img,quad_number=0):
     else:
         tmp_img[height/2:height,width/2:width] = 255
         return img[height/2:height,width/2:width],tmp_img
+
+def apply(polys,func_names,params):
+    assert len(polys) == len(func_names) and len(func_names) == len(params)
+    for i in range(len(polys)):        
+        if func_names[i] == 'flip':
+            # apply something on the object
+            polys[i].flip(how=params[i]['how'])
+        elif func_names[i] == 'rotate':
+            polys[i].rotate(theta=params[i]['theta'])
+        elif func_names[i] == 'add_vertex':
+            polys[i].add_vertex()
+        elif func_names[i] == 'delete_vertex':
+            polys[i].delete_vertex()
+        elif func_names[i] == 'clone_circumcircle':
+            polys[i].clone_circumcircle(otherpoly=params[i]['otherpoly'])
+        elif func_names[i] == 'setHatch':
+            polys[i].setHatch(hatch=params[i]['hatch'])
+        elif func_names[i] == 'swap_polygons':
+            polys[i].swap_polygons(otherpoly=params[i]['otherpoly'])

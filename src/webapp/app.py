@@ -17,7 +17,7 @@ app.config['UPLOAD_FOLDER'] = '/Users/hardik/Desktop/projects/turtle/webapp/stat
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # total number of questions in quiz
-NUM_QUESTIONS = 2
+NUM_QUESTIONS = 12
 
 db = MySQL()
 
@@ -194,24 +194,22 @@ def generate():
     session['current_question'] += 1
     # cut
     if session['current_question'] in [1, 2]:
-        question_text = "Identify the piece that completes the figure."
+        question_text = "Identify the image that completes the figure."
     # dice
     elif session['current_question'] in [3, 4]:
-        question_text = "Choose the box that is made out of the given piece of paper."
+        question_text = "Identify the cube box that is made out of the given image."
     # fold
     elif session['current_question'] in [5, 6]:
-        question_text = "Find out amongst the four alternatives as to how the pattern would appear when the paper is folded on the dotted line."
+        question_text = "Identify the image which shows how the pattern would appear when the given image is folded on the dotted line."
     # figure matrix and sequence
     elif session['current_question'] in [7, 8]:
-        question_text = "Select the figure which will continue the same series as the given 5 images."
-    # series
-    elif session['current_question'] in [9, 10]:
-        question_text = "Guess the next figure in the series."
+        question_text = "Identify the image which will continue the same series as the given 5 images."
     # grid
+    elif session['current_question'] in [9, 10]:
+        question_text = "Identify the image follows the same pattern as the images in each row."
+    # series
     elif session['current_question'] in [11, 12]:
-        question_text = "Which option replaces the question mark?"
-    else:
-        question_text = "Select the option that best completes the figure."
+        question_text = "Identify the next image in the series."
 
     if session['current_question'] <= NUM_QUESTIONS:
         # generate the quiz questions

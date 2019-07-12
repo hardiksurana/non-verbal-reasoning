@@ -13,11 +13,26 @@ At the school level, it develops 3D and geometrical reasoning for kids and at th
 
 # Setup Instruction
 
-- Setup Python2 virtual environment
-- Install packages from requirements.txt
-- Create following folder structure
-```bash
+
+```sh
+# clone the repository
 git clone https://github.com/hardiksurana/non-verbal-reasoning.git
+
+# enter project root directory
+cd non-verbal-reasoning
+
+# setup virtual environment
+pip2 install virtualenv
+virtualenv -p venv
+
+# activate virtual environment
+source venv/bin/activate
+
+# install dependencies
+pip2 install -r requirements.txt
+
+# start gunicorn web server
+gunicorn -b 0.0.0.0:8080 wsgi:app --access-logfile '-' -w 4
 ```
 
 # TODO
@@ -31,9 +46,9 @@ git clone https://github.com/hardiksurana/non-verbal-reasoning.git
 
 
 # Team
-Akshay Shrivastava
-Giri Bhatnagar
-Hardik Mahipal Surana
+1. Giri Bhatnagar
+2. Akshay Shrivastava
+3. Hardik Mahipal Surana
 
 # Guide
 Dr. Gowri Srinivasa

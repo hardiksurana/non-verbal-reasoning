@@ -96,6 +96,7 @@ class FigureMatrixAndSequence:
             img = cv2.imread(question_tmpPath, 0)
             img = cropImage(img)
             cv2.imwrite(question_tmpPath, img)
+            plt.close()
 
             # generates remaining 4 parts for question
             for i in range(1, 9):
@@ -135,6 +136,7 @@ class FigureMatrixAndSequence:
                 img = cv2.imread(question_tmpPath, 0)
                 img = cropImage(img)
                 cv2.imwrite(question_tmpPath, img)
+                plt.close()
 
         else:
             plt.figure()
@@ -165,6 +167,7 @@ class FigureMatrixAndSequence:
             img = cv2.imread(question_tmpPath, 0)
             img = cropImage(img)
             cv2.imwrite(question_tmpPath, img)
+            plt.close()
 
             # generates remaining 4 parts for question
             for i in range(1, 9):
@@ -204,12 +207,11 @@ class FigureMatrixAndSequence:
                 img = cv2.imread(question_tmpPath, 0)
                 img = cropImage(img)
                 cv2.imwrite(question_tmpPath, img)
+                plt.close()
 
         self.question_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + \
             self.session_id + '_figureMatrix_question_' + \
             str(self.questionCount) + '.png'
-        print('montage -mode concatenate -tile 5x1 -border 5 ' + self.STATIC_ROOT + 'tmp/' + self.user_id + "_" +
-              self.session_id + '_figureMatrix_question_'+str(self.questionCount)+'_part_[0-4].png ' + self.question_path)
         os.system('montage -mode concatenate -tile 5x1 -border 5 ' + self.STATIC_ROOT + 'tmp/' + self.user_id + "_" +
                   self.session_id + '_figureMatrix_question_'+str(self.questionCount)+'_part_[0-4].png ' + self.question_path)
 

@@ -549,3 +549,4 @@ if __name__ == '__main__':
     plt.axis('off')
     plt.axis('image')
     plt.savefig('./test1.png')
+    plt.close()

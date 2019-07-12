@@ -52,6 +52,7 @@ class Grid:
             plt.axis('off')
             question_base_path = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_grid_question_'+str(self.questionCount)+'_'+ str(l) +'_0.png'
             plt.savefig(question_base_path)
+            plt.close()
             
             img = cv2.imread(question_base_path, 0)
             img = cropImage(img)    
@@ -81,7 +82,8 @@ class Grid:
                 plt.axis('image')
                 plt.axis('off')
                 question_transform_path = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_grid_question_'+str(self.questionCount)+'_'+ str(l) +'_' + str(level) +'.png'
-                plt.savefig(question_transform_path)   
+                plt.savefig(question_transform_path)
+                plt.close()
                 
                 img = cv2.imread(question_transform_path, 0)
                 img = cropImage(img)    
@@ -139,7 +141,8 @@ class Grid:
                     plt.axis('image')
                     plt.axis('off')
                     distractor_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_grid_question_'+str(self.questionCount)+'_dist_'+ str(dist) + '.png'
-                    plt.savefig(distractor_path)   
+                    plt.savefig(distractor_path)
+                    plt.close()
                     
                     img = cv2.imread(distractor_path, 0)
                     img = cropImage(img)    

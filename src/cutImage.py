@@ -254,6 +254,7 @@ class Cut:
         draw_boundary(self.quadrantNum, self.question_path)
         # os.system(' convert '+ self.question_path +'  -bordercolor Black -border 8x8 '+ self.question_path)
         # os.system(' convert '+ self.answer_path +'  -bordercolor Black -border 4x4 '+ self.answer_path)
+        plt.close()
 
 
     def genDistractors(self):
@@ -292,6 +293,7 @@ class Cut:
 
             # self.distractors_path.append(os.path.split(distractor_finalPath)[1])
             self.distractors_path.append(distractor_finalPath)
+            plt.close()
 
             # add border
             # os.system(' convert ' + distractor_finalPath + '  -bordercolor Black -border 4x4 ' + distractor_finalPath)

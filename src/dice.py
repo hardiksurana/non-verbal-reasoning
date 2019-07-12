@@ -562,6 +562,7 @@ class Dice:
         img = cv2.imread(question_tmpPath, 0)
         img = cropImage(img)
         cv2.imwrite(self.question_path, img) 
+        plt.close()
 
     def draw_three_sides(self, symbols, name):    
         plt.figure()
@@ -596,9 +597,10 @@ class Dice:
         plt.axis('image')
         plt.axis('off')
         plt.savefig(name)
+        plt.close()
     
     def generate_answer(self):
-        correct_choice = random.choice([1, 2, 3, 4, 5, 6, 7, 8])
+        correct_choice = random.choice([0, 1, 2, 3, 4, 5, 6, 7])
         temp_triplet = self.triplets[correct_choice]
         answer_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_dice_answer_'+str(self.questionCount)+'.png'
         self.draw_three_sides([self.symbols[j-1] for j in temp_triplet], answer_tmpPath)

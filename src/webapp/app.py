@@ -16,6 +16,8 @@ app = Flask(__name__)
 app.secret_key = "non_verbal_reasoning"
 app.config['UPLOAD_FOLDER'] = '/Users/hardik/Desktop/projects/turtle/webapp/static/result/'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config["THREADS_PER_PAGE"] = 2
+
 
 # total number of questions in quiz
 NUM_QUESTIONS = 12

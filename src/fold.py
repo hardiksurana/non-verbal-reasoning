@@ -137,6 +137,7 @@ class Fold:
         plt.axis('off')
         question_baseImgPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_fold_question_'+str(self.questionCount)+'_base.png'
         plt.savefig(question_baseImgPath, transparent=True)
+        plt.close()
 
         # save a flipped version
         question_baseImgFlippedPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_fold_question_'+str(self.questionCount)+'_base_flipped.png'
@@ -184,6 +185,7 @@ class Fold:
 
             # same base image
             plt.savefig(dist_base_img, transparent=True)
+            plt.close()
 
             # save a flipped version 
             os.system('convert ' + dist_base_img + ' -flop ' + dist_base_flipped_img)

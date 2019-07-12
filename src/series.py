@@ -180,6 +180,7 @@ class Series:
             if i < self.TOTAL_FIG:
                 question_tmpPath = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_series_question_'+str(self.questionCount)+'_part_' + str(i) + '.png'
                 plt.savefig(question_tmpPath)
+                plt.close()
                 img = cv2.imread(question_tmpPath,0)
                 img = cropImage(img)
                 cv2.imwrite(question_tmpPath, img)
@@ -189,6 +190,7 @@ class Series:
             elif i == self.TOTAL_FIG:
                 self.answer_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_series_answer_'+str(self.questionCount)+'.png'
                 plt.savefig(self.answer_path)
+                plt.close()
                 img = cv2.imread(self.answer_path,0)
                 img = cropImage(img)
                 cv2.imwrite(self.answer_path, img)
@@ -198,6 +200,7 @@ class Series:
             else:
                 distractor_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_series_question_'+str(self.questionCount)+'_dist_'+str(i-self.TOTAL_FIG-1)+'.png'
                 plt.savefig(distractor_path)
+                plt.close()
                 img = cv2.imread(distractor_path,0)
                 img = cropImage(img)
                 cv2.imwrite(distractor_path, img)

@@ -2,3 +2,4 @@ venv/
 .vscode/
 *.pyc
 *.png
+README.md

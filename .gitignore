@@ -3,3 +3,4 @@ venv/
 *.pyc
 *.png
 README.md
+report/

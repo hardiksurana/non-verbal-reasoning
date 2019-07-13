@@ -35,6 +35,23 @@ pip2 install -r requirements.txt
 gunicorn -b 0.0.0.0:8080 wsgi:app --access-logfile '-' -w 4
 ```
 
+
+# Setups
+/usr/local/mysql-8.0.16-macos10.14-x86_64/bin/mysql -h nvrquiz-db-instance.chb3ppjrdtjp.ap-south-1.rds.amazonaws.com -P 3306 -u turtle -p
+mysql> source /Users/hardik/Desktop/projects/turtle/scripts/db_dump.sql
+
+https://medium.com/@nikovrdoljak/deploy-your-flask-app-on-azure-in-3-easy-steps-b2fe388a589e
+
+## App Service enables you to access your app content through FTP/S:
+
+FTPS endpoint: ftps://waws-prod-ma1-007.ftp.azurewebsites.windows.net/site/wwwroot
+username: nvr-quiz\$nvr-quiz
+password: AxctxKk5JuhR8wGMvBcXasbY6u7smzlcv4rcgE6Mo2FwYxQKhH8vzhd6NcM8
+
+## URL
+https://nvr-quiz.azurewebsites.net
+
+
 # TODO
 1. "Field testing"
 2. analytics

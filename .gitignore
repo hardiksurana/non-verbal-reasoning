@@ -1,6 +1,7 @@
 venv/
 .vscode/
+report/
 *.pyc
 *.png
-README.md
-report/
+*.md
+*.env

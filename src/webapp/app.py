@@ -14,7 +14,7 @@ from src.generateQuestionPaper import generate_question
 # create the application object
 app = Flask(__name__)
 app.secret_key = "non_verbal_reasoning"
-app.config['UPLOAD_FOLDER'] = '/Users/hardik/Desktop/projects/turtle/webapp/static/result/'
+# app.config['UPLOAD_FOLDER'] = '/Users/hardik/Desktop/projects/turtle/webapp/static/result/'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config["THREADS_PER_PAGE"] = 2
 

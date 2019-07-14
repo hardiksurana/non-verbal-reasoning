@@ -18,7 +18,7 @@ class Grid:
         self.question_path = ''
         self.answer_path = ''
         self.distractors_path = []
-        self.STATIC_ROOT = '/Users/hardik/Desktop/projects/turtle/src/webapp/static/'
+        self.STATIC_ROOT = '/home/site/wwwroot/src/webapp/static/'
         # self.STATIC_ROOT = './webapp/static/'
     
     def generate_all_images(self):

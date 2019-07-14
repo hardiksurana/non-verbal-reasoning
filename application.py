@@ -1,5 +1,5 @@
 from src.webapp.app import app
 
 if __name__ == "__main__":
-    print("in wsgi main")
+    print("launching app from application main()")
     app.run()

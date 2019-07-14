@@ -13,7 +13,6 @@ At the school level, it develops 3D and geometrical reasoning for kids and at th
 
 # Setup Instruction
 
-
 ```sh
 # clone the repository
 git clone https://github.com/hardiksurana/non-verbal-reasoning.git
@@ -29,30 +28,27 @@ virtualenv -p venv
 source venv/bin/activate
 
 # install dependencies
+apt-get install libpng freetype
+apt-get install libfreetype6, pkg-config, libfreetype6-dev, libpng-dev
+pip2 install six
 pip2 install -r requirements.txt
 
-# start gunicorn web server
-gunicorn -b 0.0.0.0:8080 wsgi:app --access-logfile '-' -w 4
+/usr/local/mysql-8.0.16-macos10.14-x86_64/bin/mysql -h <HOST> -P <PORT> -u <USERNAME> -p
+mysql> source /Users/hardik/Desktop/projects/turtle/scripts/db_dump.sql
+
+# start gunicorn web server in another terminal
+gunicorn --bind=0.0.0.0 --timeout 600 wsgi:app
 ```
 
 
-# Setups
-/usr/local/mysql-8.0.16-macos10.14-x86_64/bin/mysql -h nvrquiz-db-instance.chb3ppjrdtjp.ap-south-1.rds.amazonaws.com -P 3306 -u turtle -p
-mysql> source /Users/hardik/Desktop/projects/turtle/scripts/db_dump.sql
+# Links
 
-https://medium.com/@nikovrdoljak/deploy-your-flask-app-on-azure-in-3-easy-steps-b2fe388a589e
-
-## App Service enables you to access your app content through FTP/S:
-
-FTPS endpoint: ftps://waws-prod-ma1-007.ftp.azurewebsites.windows.net/site/wwwroot
-username: nvr-quiz\$nvr-quiz
-password: AxctxKk5JuhR8wGMvBcXasbY6u7smzlcv4rcgE6Mo2FwYxQKhH8vzhd6NcM8
-
-## URL
-https://nvr-quiz.azurewebsites.net
+- https://medium.com/@nikovrdoljak/deploy-your-flask-app-on-azure-in-3-easy-steps-b2fe388a589e
+- https://nvr-quiz.azurewebsites.net
 
 
 # TODO
+
 1. "Field testing"
 2. analytics
 3. assessment:
@@ -63,9 +59,11 @@ https://nvr-quiz.azurewebsites.net
 
 
 # Team
+
 1. Giri Bhatnagar
 2. Akshay Shrivastava
 3. Hardik Mahipal Surana
 
 # Guide
+
 Dr. Gowri Srinivasa

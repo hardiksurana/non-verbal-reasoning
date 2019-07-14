@@ -28,9 +28,9 @@ virtualenv -p python2.7 venv
 source venv/bin/activate
 
 # install dependencies
-apt-get install libpng freetype
-apt-get install libfreetype6, pkg-config, libfreetype6-dev, libpng-dev
-pip2 install six
+apt-get install libfreetype6 pkg-config libfreetype6-dev libpng-dev
+apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev libglib2.0-0 
+
 pip2 install -r requirements.txt
 
 /usr/local/mysql-8.0.16-macos10.14-x86_64/bin/mysql -h <HOST> -P <PORT> -u <USERNAME> -p

@@ -22,7 +22,7 @@ cd non-verbal-reasoning
 
 # setup virtual environment
 pip2 install virtualenv
-virtualenv -p venv
+virtualenv -p python2.7 venv
 
 # activate virtual environment
 source venv/bin/activate
@@ -37,7 +37,7 @@ pip2 install -r requirements.txt
 mysql> source /Users/hardik/Desktop/projects/turtle/scripts/db_dump.sql
 
 # start gunicorn web server in another terminal
-gunicorn --bind=0.0.0.0 --timeout 600 wsgi:app
+venv/bin/gunicorn --bind=0.0.0.0 --timeout 600 application:app
 ```
 
 

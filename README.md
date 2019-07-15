@@ -27,26 +27,21 @@ virtualenv -p python2.7 venv
 # activate virtual environment
 source venv/bin/activate
 
-# install dependencies
-# matplotlib
-apt-get install libfreetype6 pkg-config libfreetype6-dev libpng-dev
-
-# opencv
-opencv-python==4.1.0.25
-
-apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev 
-apt-get install libgtk2.0-dev
-apt-get install libatlas-base-dev gfortran
-
 pip2 install -r requirements.txt
 
-/usr/local/mysql-8.0.16-macos10.14-x86_64/bin/mysql -h <HOST> -P <PORT> -u <USERNAME> -p
+# enter into mysql shell
 mysql> source /Users/hardik/Desktop/projects/turtle/scripts/db_dump.sql
 
 # start gunicorn web server in another terminal
-venv/bin/gunicorn --bind=0.0.0.0 --timeout 600 application:app
+venv/bin/gunicorn --bind=0.0.0.0 application:app
 ```
 
+# Docker Setup
+
+```sh
+docker build --tag nvrquiz_docker_image .
+docker run -p 80:8000 nvrquiz_docker_image
+```
 
 # Links
 

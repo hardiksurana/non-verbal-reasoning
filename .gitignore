@@ -5,3 +5,4 @@ report/
 *.png
 *.md
 *.env
+.DS_Store

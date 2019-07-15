@@ -28,8 +28,15 @@ virtualenv -p python2.7 venv
 source venv/bin/activate
 
 # install dependencies
+# matplotlib
 apt-get install libfreetype6 pkg-config libfreetype6-dev libpng-dev
-apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev libglib2.0-0 
+
+# opencv
+opencv-python==4.1.0.25
+
+apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev 
+apt-get install libgtk2.0-dev
+apt-get install libatlas-base-dev gfortran
 
 pip2 install -r requirements.txt
 

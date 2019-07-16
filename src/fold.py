@@ -114,8 +114,7 @@ class Fold:
         self.question_path = ''
         self.answer_path = ''
         self.distractors_path = []
-        self.STATIC_ROOT = '/home/site/wwwroot/src/webapp/static/'
-        # self.STATIC_ROOT = './webapp/static/'
+        self.STATIC_ROOT = os.path.join(os.getcwd(), "src/webapp/static/")
     
     def generate_all_images(self):
         sides = [0,0,2,4] 

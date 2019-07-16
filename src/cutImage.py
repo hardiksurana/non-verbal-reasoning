@@ -193,9 +193,8 @@ class Cut:
         self.distractors = []
         self.distractors_path = []
         self.quadrantNum = random.choice([0,1,2,3])
-        self.STATIC_ROOT = '/home/site/wwwroot/src/webapp/static/'
-        # self.STATIC_ROOT = './webapp/static/'
-    
+        self.STATIC_ROOT = os.path.join(os.getcwd(), "src/webapp/static/")
+        
     def distractor_sequence(self, A):
         # This stores the polygons that make up an image.
         # We should store this and use it to create a distractor image

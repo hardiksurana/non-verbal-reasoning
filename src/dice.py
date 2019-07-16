@@ -355,8 +355,7 @@ class Dice:
         self.question_path = ''
         self.answer_path = ''
         self.distractors_path = []
-        self.STATIC_ROOT = '/home/site/wwwroot/src/webapp/static/'
-        # self.STATIC_ROOT = './webapp/static/'
+        self.STATIC_ROOT = os.path.join(os.getcwd(), "src/webapp/static/")
 
         self.layout_type = random.choice([1, 2, 3, 4, 5])
         self.symbols = ['#','*','-','?','^','**',u'\u2605',u'\u2020',u'\u002B']

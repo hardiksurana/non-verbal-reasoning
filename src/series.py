@@ -151,8 +151,7 @@ class Series:
         self.question_path = ''
         self.answer_path = ''
         self.distractors_path = []
-        self.STATIC_ROOT = '/home/site/wwwroot/src/webapp/static/'
-        # self.STATIC_ROOT = './webapp/static/'
+        self.STATIC_ROOT = os.path.join(os.getcwd(), "src/webapp/static/")
 
         # odd side have one hatch, even have one hatch. series 
         self.XX = int(random.random()*5)+3

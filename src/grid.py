@@ -18,8 +18,7 @@ class Grid:
         self.question_path = ''
         self.answer_path = ''
         self.distractors_path = []
-        self.STATIC_ROOT = '/home/site/wwwroot/src/webapp/static/'
-        # self.STATIC_ROOT = './webapp/static/'
+        self.STATIC_ROOT = os.path.join(os.getcwd(), "src/webapp/static/")
     
     def generate_all_images(self):
         dist_root_seq_of_polygons = []

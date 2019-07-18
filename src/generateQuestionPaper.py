@@ -192,7 +192,6 @@ def generate_question(question_num, user_id, session_id):
     select_query = """SELECT question_id from questions WHERE user_id=%s AND session_id=%s"""
     db.curr.execute(select_query, (user_id, session_id))
     if db.curr.rowcount > 0:
-        print("question id in genrateQuestion = ")
         result = db.curr.fetchall()[-1]
         return result
     else:

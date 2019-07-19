@@ -31,7 +31,7 @@ RUN pip2 install -r requirements.txt
 
 # Configure ports
 # EXPOSE 2222 80
-EXPOSE 8000 80
+EXPOSE 8000
 
 # setup ssh connection to container
 # ENV SSH_PASSWD "root:Docker!"

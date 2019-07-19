@@ -23,44 +23,47 @@ WORKDIR /app
 ADD . /app
 
 # Default environmental variables
-ENV SERVER_PORT 80
-ENV ENABLE_SSH true
+# ENV SERVER_PORT 80
+# ENV ENABLE_SSH true
 
 # install requirements
 RUN pip2 install -r requirements.txt
 
 # Configure ports
-EXPOSE 2222 80
+# EXPOSE 2222 80
+EXPOSE 8000 80
 
 # setup ssh connection to container
-ENV SSH_PASSWD "root:Docker!"
+# ENV SSH_PASSWD "root:Docker!"
 
 # Run apt-get, to install the SSH server, and supervisor
-RUN apt-get update \
-    && apt-get install -y supervisor \
-    && apt-get install -y --no-install-recommends dialog \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends openssh-server \
-    && echo "$SSH_PASSWD" | chpasswd  \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
+# RUN apt-get update \
+#     && apt-get install -y supervisor \
+#     && apt-get install -y --no-install-recommends dialog \
+#     && apt-get update \
+#     && apt-get install -y --no-install-recommends openssh-server \
+#     && echo "$SSH_PASSWD" | chpasswd  \
+#     && rm -rf /var/lib/apt/lists/* \
+#     && apt-get clean
 
 # Copy the sshd_config file to its new location
-COPY sshd_config /etc/ssh/
+# COPY sshd_config /etc/ssh/
 
 # Start the SSH service
-RUN service ssh start
+# RUN service ssh start
 
 # start scripts
-COPY runapp.sh start.sh /usr/bin/
+# COPY runapp.sh start.sh /usr/bin/
 
 # supervisor config
-ADD supervisor/app.conf /etc/supervisor/conf.d/
+# ADD supervisor/app.conf /etc/supervisor/conf.d/
 
 # Run the chmod command to change permissions on above file in the /bin directory
-RUN chmod 755 /usr/bin/runapp.sh && chmod 755 /usr/bin/start.sh
+# RUN chmod 755 /usr/bin/runapp.sh && chmod 755 /usr/bin/start.sh
 
 # Entrypoint
-CMD "/usr/bin/start.sh"
+# CMD "/usr/bin/start.sh"
 
-# CMD ["gunicorn", "--config", "./src/gunicorn_conf.py", "application:app"]
+
+
+CMD ["gunicorn", "--config", "./src/gunicorn_conf.py", "application:app"]

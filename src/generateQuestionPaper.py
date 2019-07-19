@@ -114,11 +114,8 @@ def generate_question(question_num, user_id, session_id):
         f = FigureMatrixAndSequence(user_id, session_id, question_num)
         f.generate_all_images()
         question_filepath = f.get_question()
-        print("question_filepath = " + question_filepath)
         answer_filepath = f.get_answer()
-        print("answer_filepath = " + answer_filepath)
         distractors_filepaths = f.get_distractors()
-        print(str(distractors_filepaths))
 
         with open(question_filepath, 'rb') as f:
             question_binary = f.read()

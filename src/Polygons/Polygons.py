@@ -65,8 +65,6 @@ class Polygon:
         return ['-', '+', 'x', '\\', '*', 'o', 'O', '.', '/', '|']
 
     def __init__(self, no_of_sides=4, size=30, isRegular=True, hatch=None, circumcircle=None):
-        # size is for the circumcircle radius
-        print("In polygons, size is ", size)
         self.size = size
         self.N = no_of_sides
         if isRegular == 'any':
@@ -274,8 +272,8 @@ class Polygon:
         # arrow = plt.arrow(self.points[0][0], self.points[0][1], self.points[1][0]-self.points[0][0],self.points[1][1]-self.points[0][1],fc="k", ec="k",head_width=0.05, head_length=0.1)
         # arrow = plt.arrow( 0.5, 0.8, 0.0, -0.2, fc="k", ec="k",head_width=0.05, head_length=0.1 )
         # arrow= plt.arrow(0, 0, 0.5, 0.5, head_width=0.05, head_length=0.1, fc='k', ec='k')
-        print(self.points[0][0], self.points[0][1], self.points[1][0] - \
-            self.points[0][0], self.points[1][1] - self.points[0][1])
+        # print(self.points[0][0], self.points[0][1], self.points[1][0] - \
+        #     self.points[0][0], self.points[1][1] - self.points[0][1])
         x1, y1 = self.points[0]
         x2, y2 = self.points[1]
         dx, dy = x2-x1, y2-y1
@@ -364,7 +362,7 @@ class Polygon:
         elif not self.isCircle():
             # rotate the current polygon clockwise by theta
             self.points = []
-            print(len(self.point_angles))
+            # print(len(self.point_angles))
             # Find new points drawn at new angles.
             for cur_angle in self.point_angles:
                 self.points.append(getpoints(self.circumcircle.radius, cur_angle + theta,
@@ -425,7 +423,7 @@ class Polygon:
                     x, y = 2 * self.circumcircle.x - x, y
                     pts.append((x, y))
             elif how == 'hori':
-                print("hori")
+                # print("hori")
                 for pt in self.points:
                     x, y = pt
                     x, y = x, 2 * self.circumcircle.y - y
@@ -512,9 +510,9 @@ if __name__ == '__main__':
     plt.figure()
     A = Polygon(no_of_sides=4, isRegular=False, size=10, hatch='random')
     A.makeRandomCircumcircle()
-    print("A circumcircle", A)
+    # print("A circumcircle", A)
     A.makeShape()
-    print("A angles", A.point_angles)
+    # print("A angles", A.point_angles)
     # print A,"giri"
     # print A.points
     # A.drawPolygon()

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, redirect, url_for, request, session
-# from mysql_utils import MySQL
-from src.webapp.mysql_utils import MySQL
 from mysql.connector.errors import Error
 from mysql.connector import errorcode
 import requests
@@ -9,9 +7,9 @@ from random import shuffle
 import json
 import uuid
 import base64
-import sys, os
-# sys.path.insert(0, os.path.dirname(os.getcwd()))
-# from generateQuestionPaper import generate_question
+import os
+
+from src.webapp.mysql_utils import MySQL
 from src.generateQuestionPaper import generate_question
 
 # create the application object

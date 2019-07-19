@@ -210,8 +210,6 @@ class Series:
         question_path = self.STATIC_ROOT + 'tmp/' + self.user_id + "_" + self.session_id + '_series_question_'+str(self.questionCount)+'_part_'
         self.question_path = self.STATIC_ROOT + 'result/' + self.user_id + "_" + self.session_id + '_series_question_'+str(self.questionCount)+'.png'
 
-        print("generating question")
-        print('montage -mode concatenate -tile '+str(self.TOTAL_FIG-1)+'x1 ' + question_path + '[1-'+str(self.TOTAL_FIG-1)+'].png ' + self.question_path)
         os.system('montage -mode concatenate -tile '+str(self.TOTAL_FIG-1)+'x1 ' + question_path + '[1-'+str(self.TOTAL_FIG-1)+'].png ' + self.question_path)
 
     def get_question(self):

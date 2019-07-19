@@ -10,8 +10,6 @@ NO_OF_EXAMPLES = 10
 
 def draw_boundary(quad_number,filename):
     img = cv2.imread(filename,0)
-    print(img.shape)
-    print(filename)
     height, width = img.shape
     if quad_number == 0:
         os.system('convert '+filename+' -stroke black -fill white -draw \"stroke-dasharray 5 3 rectangle '+str(width/2)+',0 '+str(width/2)+','+str(height/2)+'\" ' + filename )

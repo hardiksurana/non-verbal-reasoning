@@ -21,7 +21,7 @@ app.config["THREADS_PER_PAGE"] = 2
 
 
 # total number of questions in quiz
-NUM_QUESTIONS = 4
+NUM_QUESTIONS = 12
 
 db = MySQL()
 

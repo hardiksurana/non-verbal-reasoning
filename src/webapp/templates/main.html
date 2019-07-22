@@ -21,10 +21,22 @@
 
       <div class="container-fluid">
         <div class="jumbotron" style="text-align: center; height: 100%; width: 100%">
-          <p class="lead">{{login_msg}}</p>
+          <p class="lead">{{login_msg}} <span style="font-weight: bold"> {{email}} </span></p>
           <form class="form" action = "{{ url_for('enterQuiz') }}" method = "POST">
             <button class="btn btn-success my-2 my-sm-0 btn-lg" type="submit">Take New Quiz</button>
-          </form>      
+          </form>
+          
+          <br />
+          <br />
+
+          {% if quiz_completed %}
+          <form class="form" action = "{{ url_for('overallFeedback') }}" method = "POST">
+            <div class="form-group">
+              <textarea name="overallFeedback" id="overallFeedback" cols="60" rows="10" placeholder="Please provide your feedback on the quiz experience and suggest changes, if any"></textarea>
+            </div>            
+            <button class="btn btn-success my-2 my-sm-0 btn-lg" type="submit">Submit Feedback and Logout</button>
+          </form>
+          {% endif %}
         </div>
       </div>
 

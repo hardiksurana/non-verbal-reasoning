@@ -45,7 +45,7 @@
 
                      <div class="form-check col-lg-3">
                         <label>
-                           <input class="form-check-input" type="radio" name="options" value="{{answer}}" required>
+                           <input class="form-check-input" type="radio" name="options" value="{{answer}}">
                            <img class="img-thumbnail" src="data:image/png;base64,{{answer}}" alt="answer"
                               style="display: inline-block; width: 200px; height: 200px;" />
                            </input>
@@ -63,7 +63,7 @@
 
                      <div class="form-check col-lg-3">
                         <label>
-                           <input class="form-check-input" type="radio" name="options" value="{{dist_2}}">
+                           <input class="form-check-input" type="radio" name="options" value="{{dist_2}}" checked="checked">
                            <img class="img-thumbnail" src="data:image/png;base64,{{dist_2}}" alt="dist_2"
                               style="display: inline-block; width: 200px; height: 200px;" />
                            </input>
@@ -86,6 +86,12 @@
                <p><input type='hidden' id='timeTaken' name='timeTaken' value='' /></p>
                <button type="button" class="btn btn-primary" onclick="updateTime()">Submit</button>
             </form>
+            
+            <br />
+
+            <!-- <form id="skipQuestion" action="{{ url_for('generate') }}" method="GET">
+               <button type="submit" class="btn btn-danger">Skip this question</button>
+            </form> -->
          </div>
       </div>
    </div>
@@ -96,7 +102,6 @@
       var time_in_secs = 0
       function add_time() {
          time_in_secs = time_in_secs + 1
-         console.log(time_in_secs)
       }
 
       window.onload = function () {

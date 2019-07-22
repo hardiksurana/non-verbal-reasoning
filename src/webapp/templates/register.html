@@ -24,7 +24,7 @@
           <form action = "{{ url_for('register') }}" method="POST">
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+              <input type="text" class="form-control" id="email" name="email" placeholder="panda" required>
             </div>
             <div class="form-group">
               <label for="age">Age</label>
@@ -39,6 +39,7 @@
               <select class="form-control" id="gender" name="gender" required>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
+                <option value="Other">Other</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>

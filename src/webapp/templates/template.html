@@ -7,6 +7,29 @@
     
     <!-- Bootstrap CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+      }
+      html, body {
+        height: 100%;
+      }
+      .content-wrap {
+        min-height: 100%;
+        margin-bottom: -3rem;
+      }
+      .content-wrap:after {
+        content: "";
+        display: block;
+      }
+      .site-footer, .content-wrap:after {
+        height: 3rem; 
+      }
+      .site-footer {
+        font-size: smaller;
+        background-color: #f5f5f5;
+      }
+    </style>
 
     <!-- Favicon for tabs and bookmarks -->
     <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/q.png') }}">
@@ -20,7 +43,17 @@
     {% block css %}{% endblock %}
   </head>
   <body>
-    {% block content %}{% endblock %}
+    <div class="content-wrap">
+      {% block content %}{% endblock %}
+    </div>  
+    <footer class="footer site-footer mt-auto py-3">
+      <div class="container">
+        <div class="text-center">
+          <span class="text-muted">Created and presented by the PES Center for Pattern Recognition, PES University, Bengaluru, India</span>
+        </div>
+      </div>
+    </footer>
+
     {% block script %}{% endblock %}
   </body>
 </html>

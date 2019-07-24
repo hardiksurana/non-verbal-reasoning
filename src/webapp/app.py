@@ -93,26 +93,27 @@ def calculate_leaderboard():
     if not db.conn.is_connected():
         reconnect_database()
     
-    leaderboard_select_query = """SELECT score, num_questions, num_attempts, TIME_TAKEN, email, ROUND(score*100/num_questions, 0) AS percentage FROM 
+    leaderboard_select_query = """SELECT RES_UID, score, num_questions, num_attempts, TIME_TAKEN, email, ROUND(score*100/num_questions, 0) AS percentage FROM 
     (
-        SELECT COUNT(*) AS score, responses.user_id AS RES_UID 
-        FROM responses JOIN questions 
-        WHERE responses.question_id=questions.question_id AND TO_BASE64(questions.answer_img)=TO_BASE64(responses.response_img) 
+        SELECT COUNT(responses.user_id) AS score, responses.user_id AS RES_UID 
+        FROM responses JOIN questions
+        ON responses.question_id=questions.question_id
+        WHERE TO_BASE64(questions.answer_img)=TO_BASE64(responses.response_img) 
         GROUP BY RES_UID
     ) ans 
-    JOIN 
+    INNER JOIN
     (
         SELECT COUNT(question_id) AS num_questions, COUNT(DISTINCT(session_id)) as num_attempts, user_id as QUE_UID 
         FROM questions 
         GROUP BY QUE_UID
     ) que on ans.RES_UID=que.QUE_UID 
-    JOIN 
+    INNER JOIN 
     (
         SELECT avg(time_taken_in_secs) as TIME_TAKEN, user_id as TIME_UID 
         from responses 
         group by user_id
     ) time on que.QUE_UID=time.TIME_UID 
-    JOIN 
+    INNER JOIN 
     (
         SELECT email, user_id AS USER_UID 
         from users

@@ -29,10 +29,14 @@
       <div class="container">
         <br>
         <h2 class="display-6">Leaderboard</h2>
-        <table class="table table-bordered table-hover">
+        <div class="alert alert-info" role="alert" style="display: inline-block;">
+          Usernames are partially hidden to maintain anonymity.
+        </div>
+        <table class="table table-bordered table-hover" id="leaderBoard">
           <thead>
             <tr>
-              <th scope="col">Email</th>
+              <th scope="col">Sl. No</th>
+              <th scope="col">Username or Pseudonym</th>
               <th scope="col">% correct score</th>
               <th scope="col">Avg. time taken</th>
               <th scope="col">Total #attempts</th>
@@ -42,6 +46,9 @@
             {% for person in leaderboard %}
               <tr>
                 <td>
+                    {{loop.index}}
+                </td>
+                <td id="{{loop.index}}_username">
                     {{person['email']}}
                 </td>
                 <td>
@@ -59,4 +66,28 @@
         </table>
       </div>
 
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript">
+    var protect_email = function () {
+      var tbl = document.getElementById("leaderBoard");
+      for (var i = 1, row; row = tbl.rows[i]; i++) {
+        var user_email = row.cells[1].innerHTML.trim();
+        var avg, splitted, part1, part2;
+        splitted = user_email.split("@")[0];
+        part1 = splitted.substring(0, splitted.length/3);
+        part2 = '.....'
+        part3 = splitted.substring(2 * splitted.length/3, splitted.length);
+        hidden_username = part1 + part2 + part3;
+        document.getElementById(i+"_username").innerHTML = hidden_username;
+      }
+    };
+
+    document.addEventListener('readystatechange', event => {
+      if (event.target.readyState === "complete") {
+        protect_email();
+      }
+    });
+  </script>
 {% endblock %}

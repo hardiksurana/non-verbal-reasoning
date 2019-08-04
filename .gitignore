@@ -1,8 +1,15 @@
 venv/
 .vscode/
-report/
 *.pyc
 *.png
+*.doc
 *.md
+*.sql
+*.pdf
 *.env
 .DS_Store
+
+# specific files to ignore
+report/
+screenshots/
+scripts/

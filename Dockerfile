@@ -64,6 +64,4 @@ EXPOSE 8000
 # Entrypoint
 # CMD "/usr/bin/start.sh"
 
-
-
 CMD ["gunicorn", "--config", "./src/gunicorn_conf.py", "application:app"]

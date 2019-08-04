@@ -1,33 +1,25 @@
 import mysql.connector
 from mysql.connector import errorcode, Error
 
-'''
-self.conn = mysql.connector.connect(
-        host="localhost",
-        user="turtle",
-        database="non_verbal_reasoning",
-        passwd="turtle"
-)
-'''
 class MySQL:
     def __init__(self):
         self.conn = mysql.connector.connect(
-                host="nvrquiz-db-instance.chb3ppjrdtjp.ap-south-1.rds.amazonaws.com",
-                port=3306,
-                database="non_verbal_reasoning",
-                user="turtle",
-                password="NVRqu!z123"
+                host="<HOST_NAME>",
+                port="<PORT_NUMBER>",
+                database="<DB_NAME>",
+                user="<USER_NAME>",
+                password="<PASSWORD>"
         )
 
         self.curr = self.conn.cursor(buffered=True, dictionary=True)
     
     def create_connection(self):
         self.conn = mysql.connector.connect(
-                host="nvrquiz-db-instance.chb3ppjrdtjp.ap-south-1.rds.amazonaws.com",
-                port=3306,
-                database="non_verbal_reasoning",
-                user="turtle",
-                password="NVRqu!z123"
+                host="<HOST_NAME>",
+                port="<PORT_NUMBER>",
+                database="<DB_NAME>",
+                user="<USER_NAME>",
+                password="<PASSWORD>"
         )
 
     def close_connection(self):

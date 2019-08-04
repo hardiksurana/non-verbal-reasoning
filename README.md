@@ -1,17 +1,12 @@
 # Project Description
 
-This project is about automatically generating questions on non-verbal reasoning. This is to help generate multiple question sets (and solutions) of comparable difficulty to help students practice questions on non-verbal reasoning (inspired by RS Agarwal's question types). It is based on a series of parameter controlled rules - for the difficulty level, question types, etc. For instance, the question on paper folding, rotation, etc., will decide how 'complicated' the pattern is based on difficulty level. Likewise, the type of polygon (how many sides?) is also determined through a parameter. Distractors for multiple choice questions are generated through the same code (small transformations on the original solution.) 
+Non-verbal reasoning tests allow evaluators to test a diverse set of abilities in students without relying upon, or being limited by, language skills. In this paper we present an automated system to generate a variety of non-verbal reasoning questions spanning abstract reasoning, non-verbal analogy and spatial reasoning question types with granular control over difficulty levels. Our design also generates meaningful distractors as this is an important aspect of generating better quality multiple-choice questions. We present experimental results through analytics on question feedback and performance that demonstrate that the system-generated questions indeed serve to assess and hone non- verbal reasoning skills.
 
-At the school level, it develops 3D and geometrical reasoning for kids and at the college level is useful for placement test preparation, etc., and otherwise as well, just a good exercise for the brain with ready scoring (since the answer sets are automatically generated with the question)!  
-
-1. Why the focus on non-verbal reasoning?
-   - needed by many MOOCs and exams
-   - difficult to create manually
-   - high cost of creating good quality questions
-   - manually constructed questions have poor performance parameters
-
+The website is currently hosted [here](https://nvr-quiz.azurewebsites.net)
 
 # Setup Instruction
+
+It is preferable to run the application within docker to ensure all dependencies are met.
 
 ```sh
 # clone the repository
@@ -27,38 +22,31 @@ virtualenv -p python2.7 venv
 # activate virtual environment
 source venv/bin/activate
 
+# install dependencies
 pip2 install -r requirements.txt
 
-# enter into mysql shell
-mysql> source /Users/hardik/Desktop/projects/turtle/scripts/db_dump.sql
+# enter into hosted/local mysql instance
+mysql -h <HOST_NAME> -P <PORT_NUMBER> -u <USER_NAME> -p
+
+# create a database using the dump file in the mysql shell
+mysql> source <PATH_TO_DB_DUMP>
 
 # start gunicorn web server in another terminal
-venv/bin/gunicorn --bind=0.0.0.0 application:app
-```
+venv/bin/gunicorn application:app -b 0:8000 --access-logfile '-' --worker-class gevent
+# or, use pre-set configurations
+venv/bin/gunicorn --config ./app/src/gunicorn_conf.py application:app
 
-# Docker Setup
-
-```sh
+# Run the docker container locally to test
 docker build --tag nvrquiz_docker_image .
+# access the web application on http://0.0.0.0/
 docker run -p 80:8000 nvrquiz_docker_image
 ```
 
-# Links
+# Deployment Instructions
 
-- https://medium.com/@nikovrdoljak/deploy-your-flask-app-on-azure-in-3-easy-steps-b2fe388a589e
-- https://nvr-quiz.azurewebsites.net
-
-
-# TODO
-
-1. "Field testing"
-2. analytics
-3. assessment:
-  - compare machine generated vs manual generation (turing test)
-  - is the solution correct? or is it random?
-  - is the question difficult? do the parameters really control the difficulty? time taken by the person? did they get the answer right?
-  - what is the impact of people solving these questions? over time, is there improvement in their understanding?
-
+1. Create a 'Web App for Containers' in Microsoft Azure - [link](https://docs.microsoft.com/en-us/azure/app-service/containers/tutorial-custom-docker-image)
+  - Deploy to Docker Hub instead of Azure Container Registry
+1. Create a MySQL database in AWS - [link](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateDBInstance.html)
 
 # Team
 
